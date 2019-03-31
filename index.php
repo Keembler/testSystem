@@ -22,6 +22,9 @@ else {
 	}
 }
 
+
+
+
 if (isset($_POST['login_form'])) {
 	
 
@@ -75,6 +78,7 @@ if (isset($_SESSION['$role'])) {
 }
 //ПРОВЕРКА АВТОРИЗАЦИИ
 
+include('controllers/users.php');
 
 if ( file_exists('adminpanel/'.$page.'.php') and $_SESSION['$root'] == 1 ) { 
 	include('adminpanel/'.$page.'.php');

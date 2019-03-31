@@ -10,6 +10,9 @@ ul{
 	margin: 0;
 	list-style: none;
 }
+.status-text {
+	display: none;
+}
 .page-wrapper {
 	height: 100vh;
 }

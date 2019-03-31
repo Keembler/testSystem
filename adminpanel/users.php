@@ -2,7 +2,7 @@
 	<? 
 	$query = mysqli_query($link, "SELECT * FROM users");
 	$i = 0;
-	while($user = mysqli_fetch_array($query)){ ?>
+	?>
 	<div class="users">
 		<h1>Пользователи</h1>
 		<div class="row">
@@ -15,6 +15,7 @@
 							<h4 class="modal-title">Новый пользователь</h4>
 						</div>
 						<div class="modal-body">
+							<p class="status-text text-center"><b></b></p>
 							<div class="container-fluid">
 								<div class="row">
 									<form role="form" class="add-user-form">
@@ -46,7 +47,7 @@
 												Права администратора
 											</label>
 										</div>
-										<button type="submit" class="btn btn-primary">Сохранить</button>
+										<button type="submit" class="btn btn-primary btn-add-user">Сохранить</button>
 									</form>
 								</div>
 							</div>
@@ -66,14 +67,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?
+					<? while($user = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$user[login]</td><td>$user[role]</td><td><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></td></tr>";
-					?>
+						echo "<tr><td>$i</td><td>$user[login]</td><td>$user[role]</td><td><span class='glyphicon glyphicon-remove remove-user' aria-hidden='true' data-id='$user[id]'></span></td></tr>";
+					}?>
 				</tbody>
 			</table>
 		</div>
 	</div>
-	<? } ?>
 	<script src="../js/users.js"></script>
 <?php include("footer.php"); ?>
