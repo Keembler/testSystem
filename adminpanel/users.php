@@ -19,6 +19,8 @@
 							<div class="container-fluid">
 								<div class="row">
 									<form role="form" class="add-user-form">
+										<input type="hidden" name="id_user" id="id_user" value="">
+										<input type="hidden" name="edited" id="edited" value="">
 										<div class="form-group">
 											<label for="fio">ФИО</label>
 											<input type="text" class="form-control" id="fio" name="fio" placeholder="ФИО">
@@ -43,7 +45,7 @@
 										
 										<div class="checkbox">
 											<label>
-												<input type="checkbox" value="1">
+												<input type="checkbox" value="1" name="root" id="root">
 												Права администратора
 											</label>
 										</div>
@@ -105,7 +107,7 @@
 			</div>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-hover">
+			<table class="table table-hover list_users">
 				<thead>
 					<tr>
 						<th style="font-size: 18px;"><b>№</b></th>
@@ -118,7 +120,7 @@
 				<tbody>
 					<? while($user = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$user[login]</td><td>$user[role]</td><td><button class='glyphicon glyphicon-pencil edit-user' aria-hidden='true' data-toggle='modal' href='#ed_user' data-id='$user[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-user' aria-hidden='true' data-id='$user[id]'></span></td></tr>";
+						echo "<tr><td>$i</td><td>$user[login]</td><td>$user[role]</td><td><button class='glyphicon glyphicon-pencil edit-user' aria-hidden='true' data-id='$user[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-user' aria-hidden='true' data-id='$user[id]'></span></td></tr>";
 					}?>
 				</tbody>
 			</table>
