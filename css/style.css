@@ -112,6 +112,17 @@ ul{
 	outline: none;
 	background: none;
 }
+.tests .glyphicon-remove {
+	cursor: pointer;
+	color: red;
+}
+.tests .glyphicon-pencil {
+	cursor: pointer;
+	color: black;
+	border: none;
+	outline: none;
+	background: none;
+}
 
 .navbar-collapse {
 	padding: 0;

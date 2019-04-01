@@ -39,8 +39,7 @@
 						<div class="collapse navbar-collapse navbar-ex1-collapse">
 							<ul class="nav">
 								<li><a href="/adminka">Главная</a></li>
-								<li><a href="/create-test">Создать тест</a></li>
-								<li><a href="/edit-test">Редактировать тест</a></li>
+								<li><a href="/tests">Тесты</a></li>
 								<li><a href="/users">Пользователи</a></li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
