@@ -102,6 +102,13 @@ ul{
 	cursor: pointer;
 	color: red;
 }
+.users .glyphicon-pencil {
+	cursor: pointer;
+	color: black;
+	border: none;
+	outline: none;
+	background: none;
+}
 
 .navbar-collapse {
 	padding: 0;
