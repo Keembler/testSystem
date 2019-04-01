@@ -79,6 +79,7 @@ if (isset($_SESSION['$role'])) {
 //ПРОВЕРКА АВТОРИЗАЦИИ
 
 include('controllers/users.php');
+include('controllers/tests.php');
 
 if ( file_exists('adminpanel/'.$page.'.php') and $_SESSION['$root'] == 1 ) { 
 	include('adminpanel/'.$page.'.php');
