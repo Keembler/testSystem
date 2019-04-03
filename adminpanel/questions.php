@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 	<? 
-	$query = mysqli_query($link, "SELECT * FROM questions");
+	$query = mysqli_query($link, "SELECT questions.id, questions.question, tests.name FROM questions, tests WHERE tests.id = questions.parent_test");
 	$i = 0;
 	?>
 	<div class="questions">
@@ -22,10 +22,6 @@
 										<input type="hidden" name="id_question" id="id_question" value="">
 										<input type="hidden" name="edited" id="edited" value="">
 										<div class="form-group">
-											<label for="question-name">Вопрос</label>
-											<input type="text" class="form-control" id="name" name="question" placeholder="Вопрос">
-										</div>
-										<div class="form-group">
 											<label for="role">Тест</label>
 											<select name="parent_test" id="parent_test" class="form-control" required="required">
 												<?
@@ -35,6 +31,43 @@
 												<option value="<? echo $test['id']; ?>"><? echo $test['name']; ?></option>
 												<? } ?>
 											</select>
+										</div>
+										<div class="form-group">
+											<label for="question-name">Вопрос</label>
+											<input type="text" class="form-control" id="name" name="question" placeholder="Вопрос">
+										</div>
+										<div class="form-group">
+											<div class="type-answer-title">Выберите тип ответа</div>
+											<div class="radio">
+												<label for="radio"><input type="radio" id="radio" name="optradio" class="type-answer" checked>Один правильный ответ</label>
+											</div>
+											<div class="radio">
+												<label for="check"><input type="radio" id="check" name="optradio" class="type-answer">Несколько правильных ответов</label>
+											</div>
+											<div class="radio">
+												<label for="word"><input type="radio" id="word" name="optradio" class="type-answer">Ввод правильного ответа с клавиатуры</label>
+											</div>
+										</div>
+										<div class="form-group radio">
+											<div class="title">Впишите варианты ответов и выберите один правильный</div>
+											<div class="input-group">
+												<span class="input-group-addon">
+													<input type="radio" name="correct_answer">
+												</span>
+												<input type="text" class="form-control" name="answer">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">
+													<input type="radio" name="correct_answer">
+												</span>
+												<input type="text" class="form-control" name="answer">
+											</div>
+										</div>
+										<div class="form-group check">
+											<div class="title">Впишите варианты ответов и выберите несколько правильных</div>
+										</div>
+										<div class="form-group word">
+											<div class="title">Впришите правильное слово</div>
 										</div>
 										<button type="submit" class="btn btn-primary btn-add-question">Сохранить</button>
 									</form>
@@ -59,7 +92,7 @@
 				<tbody>
 					<? while($question = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$question[question]</td><td>$question[parent_test]</td><td><button class='glyphicon glyphicon-pencil edit-question' aria-hidden='true' data-id='$question[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-question' aria-hidden='true' data-id='$question[id]'></span></td></tr>";
+						echo "<tr><td>$i</td><td>$question[question]</td><td>$question[name]</td><td><button class='glyphicon glyphicon-pencil edit-question' aria-hidden='true' data-id='$question[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-question' aria-hidden='true' data-id='$question[id]'></span></td></tr>";
 					} ?>
 				</tbody>
 			</table>

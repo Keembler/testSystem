@@ -1,5 +1,35 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
-    
+
+    if($('input#radio').prop("checked")){
+        $('.form-group.radio').css('display', 'block');
+        $('.form-group.check').css('display', 'none');
+        $('.form-group.word').css('display', 'none');
+    }else if($('input#check').prop("checked")){
+        $('.form-group.radio').css('display', 'none');
+        $('.form-group.check').css('display', 'block');
+        $('.form-group.word').css('display', 'none');
+    }else{
+        $('.form-group.radio').css('display', 'none');
+        $('.form-group.check').css('display', 'none');
+        $('.form-group.word').css('display', 'block');
+    }
+
+    $('.type-answer').on('change', function(){
+        if($('input#radio').prop("checked")){
+            $('.form-group.radio').css('display', 'block');
+            $('.form-group.check').css('display', 'none');
+            $('.form-group.word').css('display', 'none');
+        }else if($('input#check').prop("checked")){
+            $('.form-group.radio').css('display', 'none');
+            $('.form-group.check').css('display', 'block');
+            $('.form-group.word').css('display', 'none');
+        }else{
+            $('.form-group.radio').css('display', 'none');
+            $('.form-group.check').css('display', 'none');
+            $('.form-group.word').css('display', 'block');
+        } 
+    });
+
     $(document).on('click', '.btn-add-question', function(e){
         e.preventDefault();
         console.log("Добавляем новый вопрос");
@@ -89,6 +119,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                     var $question = rsp.question;
                     $('#add_question').find('#id_question').val($question.id);
                     $('#add_question').find('#edited').val(1);
+                    $('#add_question').find('#parent_test').val($question.parent_test);
                     $('#add_question').find('#name').val($question.question);
                     $('#add_question').modal('show');
                 }

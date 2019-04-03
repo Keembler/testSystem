@@ -127,7 +127,38 @@ ul{
 	cursor: pointer;
 	color: green;
 }
+.questions .modal-dialog{
+	width: 500px;
+}
+.questions .glyphicon-remove {
+	cursor: pointer;
+	color: red;
+}
+.questions .glyphicon-pencil {
+	cursor: pointer;
+	color: black;
+	border: none;
+	outline: none;
+	background: none;
+}
+.questions .glyphicon-plus {
+	cursor: pointer;
+	color: green;
+}
 
+.questions .add-question-form .type-answer-title,
+.questions .add-question-form .form-group .title{
+	font-weight: 700;
+}
+
+.questions .add-question-form .type-answer{
+	font-weight: 400;
+}
+.questions .form-group.radio,
+.questions .form-group.check,
+.questions .form-group.word{
+	display: none;
+}
 .navbar-collapse {
 	padding: 0;
 }
