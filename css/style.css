@@ -123,6 +123,10 @@ ul{
 	outline: none;
 	background: none;
 }
+.tests .glyphicon-plus {
+	cursor: pointer;
+	color: green;
+}
 
 .navbar-collapse {
 	padding: 0;

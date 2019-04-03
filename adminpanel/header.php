@@ -40,6 +40,7 @@
 							<ul class="nav">
 								<li><a href="/adminka">Главная</a></li>
 								<li><a href="/tests">Тесты</a></li>
+								<li><a href="/questions">Вопросы</a></li>
 								<li><a href="/users">Пользователи</a></li>
 							</ul>
 						</div><!-- /.navbar-collapse -->
