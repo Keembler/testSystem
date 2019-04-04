@@ -1,40 +1,56 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
 
-    if($('input#radio').prop("checked")){
-        $('.form-group.radio').css('display', 'block');
-        $('.form-group.check').css('display', 'none');
-        $('.form-group.word').css('display', 'none');
-    }else if($('input#check').prop("checked")){
-        $('.form-group.radio').css('display', 'none');
-        $('.form-group.check').css('display', 'block');
-        $('.form-group.word').css('display', 'none');
-    }else{
-        $('.form-group.radio').css('display', 'none');
-        $('.form-group.check').css('display', 'none');
-        $('.form-group.word').css('display', 'block');
+    
+
+    function changeTypeAnswer () {
+        if($('input#radio').prop("checked")){
+            $('.form-group.radio').css('display', 'block').addClass('active_block_answers');
+            $('.form-group.check').css('display', 'none').removeClass('active_block_answers');
+            $('.form-group.word').css('display', 'none').removeClass('active_block_answers');
+        }else if($('input#check').prop("checked")){
+            $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
+            $('.form-group.check').css('display', 'block').addClass('active_block_answers');
+            $('.form-group.word').css('display', 'none').removeClass('active_block_answers');
+        }else{
+            $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
+            $('.form-group.check').css('display', 'none').removeClass('active_block_answers');
+            $('.form-group.word').css('display', 'block').addClass('active_block_answers');
+        }
     }
 
+    changeTypeAnswer();
+
     $('.type-answer').on('change', function(){
-        if($('input#radio').prop("checked")){
-            $('.form-group.radio').css('display', 'block');
-            $('.form-group.check').css('display', 'none');
-            $('.form-group.word').css('display', 'none');
-        }else if($('input#check').prop("checked")){
-            $('.form-group.radio').css('display', 'none');
-            $('.form-group.check').css('display', 'block');
-            $('.form-group.word').css('display', 'none');
-        }else{
-            $('.form-group.radio').css('display', 'none');
-            $('.form-group.check').css('display', 'none');
-            $('.form-group.word').css('display', 'block');
-        } 
+        changeTypeAnswer();
     });
 
     $(document).on('click', '.btn-add-question', function(e){
         e.preventDefault();
+
+        var ANSWERS = [];
+
         console.log("Добавляем новый вопрос");
+
         var $form = $(e.target).parent('form'),
-            formData = $form.serialize(), $url;
+            formData, $url;
+
+        var testID = $form.find('#parent_test').val(),
+            question = $form.find('[name="question"]').val();
+
+        $('.active_block_answers .input-group').each(function(ind,inp_group){
+            
+            if ($(inp_group).find('input[name="answer"]').val() !== '') {
+                var answer = {
+                    answer: $(inp_group).find('input[name="answer"]').val(),
+                    correct_answer: $(inp_group).find('input[name="correct_answer"]').prop('checked') ? 1 : 0
+                }
+                ANSWERS.push(answer);
+                
+            }
+        });
+        console.log("ANSWERS", ANSWERS);
+        
+        formData = 'parent_test='+testID+'&question='+question+'&answers='+JSON.stringify(ANSWERS);
 
         if ($form.find('#edited').val() !== '') {
             $url = '/save_question';
@@ -50,7 +66,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             data: formData,
             success: function(resp) {
                 console.log("Пришёл ответ", resp);
-                var rsp = JSON.parse(resp);
+                /*var rsp = JSON.parse(resp);
                 if (rsp.status === 200) {
                     $form.closest('.modal-body').find('.status-text').addClass('text-success').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
@@ -74,7 +90,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                 else {
                     $form.closest('.modal-body').find('.status-text').addClass('text-danger').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
-                }
+                }*/
             }
         });
 
