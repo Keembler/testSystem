@@ -1,11 +1,19 @@
 <?
-if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['question'])) {
+if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['question']) and isset($_POST['answer'])) {
 	$name = $_POST['question'];
 	$test = $_POST['parent_test'];
-
+	$answer = $_POST['answer'];
+	$correct_answer = $_POST['correct_answer'];
+	var_dump($answer);
+/*
 	$query = mysqli_query($link, "INSERT INTO `questions` (`question`, `parent_test`) VALUES('$name','$test')");
 
-	if ($query) {
+	$query_last_question = mysqli_query($link, "SELECT id FROM questions ORDER BY id DESC LIMIT 1");
+	$last_question = mysqli_fetch_array($query_last_question);
+
+	$query_answers = mysqli_query($link, "INSERT INTO `answers` (`answer`, `parent_question`, `correct_answer`) VALUES('$answer', '$last_question[id]', '$correct_answer')");
+*/
+	if ($query and $query_answers) {
 		$resp = '{"status": 200, "text":"Новый вопрос добавлен"}';
 	}
 	else {

@@ -159,6 +159,13 @@ ul{
 .questions .form-group.word{
 	display: none;
 }
+.questions .form-group .input-group input[type='radio']{
+	position: relative;
+	margin-left: 0;
+}
+.questions .form-group .input-group{
+	margin: 10px 0;
+}
 .navbar-collapse {
 	padding: 0;
 }

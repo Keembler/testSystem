@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 	<? 
-	$query = mysqli_query($link, "SELECT questions.id, questions.question, tests.name FROM questions, tests WHERE tests.id = questions.parent_test");
+	$query = mysqli_query($link, "SELECT questions.id, questions.question, tests.name FROM questions, tests  WHERE tests.id = questions.parent_test");
 	$i = 0;
 	?>
 	<div class="questions">
@@ -65,9 +65,23 @@
 										</div>
 										<div class="form-group check">
 											<div class="title">Впишите варианты ответов и выберите несколько правильных</div>
+											<div class="input-group">
+												<span class="input-group-addon">
+													<input type="checkbox" name="correct_answer">
+												</span>
+												<input type="text" class="form-control" name="answer">
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon">
+													<input type="checkbox" name="correct_answer">
+												</span>
+												<input type="text" class="form-control" name="answer">
+											</div>
 										</div>
 										<div class="form-group word">
 											<div class="title">Впришите правильное слово</div>
+											<input type="hidden" name="correct_answer" id="correct_answer" value="1">
+											<input type="text" class="form-control" name="answer">
 										</div>
 										<button type="submit" class="btn btn-primary btn-add-question">Сохранить</button>
 									</form>
