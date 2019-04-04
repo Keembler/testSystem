@@ -39,13 +39,13 @@
 										<div class="form-group">
 											<div class="type-answer-title">Выберите тип ответа</div>
 											<div class="radio">
-												<label for="radio"><input type="radio" id="radio" name="optradio" class="type-answer" checked>Один правильный ответ</label>
+												<label for="radio"><input type="radio" id="radio" name="type_answer" class="type-answer" value="radio">Один правильный ответ</label>
 											</div>
 											<div class="radio">
-												<label for="check"><input type="radio" id="check" name="optradio" class="type-answer">Несколько правильных ответов</label>
+												<label for="check"><input type="radio" id="check" name="type_answer" class="type-answer" value="check">Несколько правильных ответов</label>
 											</div>
 											<div class="radio">
-												<label for="word"><input type="radio" id="word" name="optradio" class="type-answer">Ввод правильного ответа с клавиатуры</label>
+												<label for="word"><input type="radio" id="word" name="type_answer" class="type-answer" value="word">Ввод правильного ответа с клавиатуры</label>
 											</div>
 										</div>
 										<div class="form-group radio">

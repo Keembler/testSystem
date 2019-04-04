@@ -11,7 +11,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.check').css('display', 'block').addClass('active_block_answers');
             $('.form-group.word').css('display', 'none').removeClass('active_block_answers');
-        }else{
+        }else if($('input#word').prop("checked")){
             $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.check').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.word').css('display', 'block').addClass('active_block_answers');
@@ -35,7 +35,9 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             formData, $url;
 
         var testID = $form.find('#parent_test').val(),
-            question = $form.find('[name="question"]').val();
+            question = $form.find('[name="question"]').val(),
+            questionID = $form.find('[name="id_question"]').val();
+            type_answer = $form.find('[name="type_answer"]:checked').val();
 
         $('.active_block_answers .input-group').each(function(ind,inp_group){
             
@@ -50,7 +52,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
         });
         console.log("ANSWERS", ANSWERS);
         
-        formData = 'parent_test='+testID+'&question='+question+'&answers='+JSON.stringify(ANSWERS);
+        formData = 'parent_test='+testID+'&type_answer='+type_answer+'&id_question='+questionID+'&question='+question+'&answers='+JSON.stringify(ANSWERS);
 
         if ($form.find('#edited').val() !== '') {
             $url = '/save_question';
@@ -66,12 +68,13 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             data: formData,
             success: function(resp) {
                 console.log("Пришёл ответ", resp);
-                /*var rsp = JSON.parse(resp);
+                var rsp = JSON.parse(resp);
                 if (rsp.status === 200) {
                     $form.closest('.modal-body').find('.status-text').addClass('text-success').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
                     if ($form.find('#edited').val() === '') {
                         var question = rsp.question;
+                        console.log(question);
                         var count = $('.list_questions tbody tr').length+1;
                         var newTR = `<tr>
                                         <td>${count}</td>
@@ -90,7 +93,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                 else {
                     $form.closest('.modal-body').find('.status-text').addClass('text-danger').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
-                }*/
+                }
             }
         });
 
@@ -150,6 +153,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
     $('#add_question').on('hidden.bs.modal', function (e) {
         $('#add_question').find('input[type="text"],input[type="hidden"]').val("");
         $('#add_question').find('input[type="checkbox"]').prop('checked',false);
+        $('#add_question').find('input[type="radio"]').prop('checked',false);
         $('.status-text').removeClass('text-success').removeClass('text-danger').hide();
     })
 

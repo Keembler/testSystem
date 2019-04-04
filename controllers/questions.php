@@ -1,23 +1,23 @@
 <?
 if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['question']) and isset($_POST['answers'])) {
 
-	$question = $_POST['question'];
+	$name = $_POST['question'];
 	$testID = $_POST['parent_test'];
 	$answers = json_decode($_POST['answers']);
+	$type_answer = $_POST['type_answer']; 
 
 
 	/**
 	 * Записываем новый вопрос в базу данных
 	 */
-	$query = mysqli_query($link, "INSERT INTO `questions` (`question`, `parent_test`) VALUES('$question','$testID')");
+	$query = mysqli_query($link, "INSERT INTO `questions` (`question`, `parent_test`, `type_answer`) VALUES('$name','$testID', '$type_answer')");
 
 	/**
 	 * Получаем ID последнего вопроса из базы
 	 */
-	$query_last_question = mysqli_query($link, "SELECT id FROM questions ORDER BY id DESC LIMIT 1");
+	$query_last_question = mysqli_query($link, "SELECT * FROM `questions` ORDER BY id DESC LIMIT 1");
 
-	$questionID = mysqli_fetch_array($query_last_question);
-
+	$question = mysqli_fetch_array($query_last_question);
 
 	/**
 	 * Записыаем ответы в базу данных используя полученный ранее ID вопроса
@@ -28,18 +28,19 @@ if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['quest
 	$VALUES = "";
 	for ($i=0; $i < count($answers); $i++) { 
 		if ($i < count($answers)-1) {
-			$VALUES .= "('".$answers[$i]->answer."',".$questionID['id'].",'".$answers[$i]->correct_answer."'),";
+			$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."'),";
 		}
 		else {
-			$VALUES .= "('".$answers[$i]->answer."',".$questionID['id'].",'".$answers[$i]->correct_answer."')";
+			$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."')";
 		}
 	}
 	
 	$query_answers = mysqli_query($link, "INSERT INTO `answers` (`answer`, `parent_question`, `correct_answer`) VALUES $VALUES");
 
+	$question = json_encode($question);
 	
 	if ($query and $query_answers) {
-		$resp = '{"status": 200, "text":"Новый вопрос c ответами добавлен"}';
+		$resp = '{"status": 200, "text":"Новый вопрос c ответами добавлен", "question":'.$question.'}';
 	}
 	else {
 		$resp = '{"status": 400, "text":"Ошибочка"}';

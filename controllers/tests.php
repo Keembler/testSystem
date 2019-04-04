@@ -10,8 +10,11 @@ if ($page === 'add_test' and $_SESSION['$root'] == 1 and isset($_POST['name'])) 
 
 	$query = mysqli_query($link, "INSERT INTO `tests` (`name`, `enable`) VALUES('$name','$active')");
 
+	$query = mysqli_query($link, "SELECT * FROM `tests` ORDER BY id DESC LIMIT 1");
+	$test = json_encode(mysqli_fetch_array($query));
+
 	if ($query) {
-		$resp = '{"status": 200, "text":"Новый тест добавлен"}';
+		$resp = '{"status": 200, "text":"Новый тест добавлен", "test":'.$test.'}';
 	}
 	else {
 		$resp = '{"status": 400, "text":"Ошибочка"}';

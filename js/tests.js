@@ -30,7 +30,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                         var newTR = `<tr>
                                         <td>${count}</td>
                                         <td>${test.name}</td>
-                                        <td>${test.active}</td>
+                                        <td>${test.enable}</td>
                                         <td>
                                             <button class='glyphicon glyphicon-pencil edit-test' aria-hidden='true' data-id='${test.id}'></button>
                                         </td>
