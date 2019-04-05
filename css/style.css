@@ -189,3 +189,7 @@ ul{
 		margin-left: 185px;
 	}
 }
+.testing .list-group a{
+	margin: 10px 0;
+	border-radius: 5px;
+}

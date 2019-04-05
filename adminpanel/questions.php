@@ -20,6 +20,7 @@
 								<div class="row">
 									<form role="form" class="add-question-form">
 										<input type="hidden" name="id_question" id="id_question" value="">
+										<input type="hidden" id="type-answer" value="">
 										<input type="hidden" name="edited" id="edited" value="">
 										<div class="form-group">
 											<label for="role">Тест</label>
@@ -39,13 +40,13 @@
 										<div class="form-group">
 											<div class="type-answer-title">Выберите тип ответа</div>
 											<div class="radio">
-												<label for="radio"><input type="radio" id="radio" name="type_answer" class="type-answer" value="radio">Один правильный ответ</label>
+												<label for="radio"><input type="radio" id="radio" name="type_answer" class="type-answer radio" value="radio">Один правильный ответ</label>
 											</div>
 											<div class="radio">
-												<label for="check"><input type="radio" id="check" name="type_answer" class="type-answer" value="check">Несколько правильных ответов</label>
+												<label for="check"><input type="radio" id="check" name="type_answer" class="type-answer check" value="check">Несколько правильных ответов</label>
 											</div>
 											<div class="radio">
-												<label for="word"><input type="radio" id="word" name="type_answer" class="type-answer" value="word">Ввод правильного ответа с клавиатуры</label>
+												<label for="word"><input type="radio" id="word" name="type_answer" class="type-answer word" value="word">Ввод правильного ответа с клавиатуры</label>
 											</div>
 										</div>
 										<div class="form-group radio">

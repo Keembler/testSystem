@@ -64,6 +64,11 @@ else if ($page === 'ed_question' and $_SESSION['$root'] == 1 and isset($_POST['i
 
 	$query = mysqli_query($link, "SELECT * FROM `questions` WHERE `id` = $questionID");
 	$question = json_encode(mysqli_fetch_array($query));
+
+
+	/* НЕ ДОДЕЛАНО РЕДАКТИРОВАНИЕ */
+
+
 	if ($query) {
 		$resp = '{"status": 200, "text":"Вопрос c ID = '.$questionID.' получен", "question":'.$question.'}';
 	}

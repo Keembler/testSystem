@@ -140,6 +140,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                     $('#add_question').find('#edited').val(1);
                     $('#add_question').find('#parent_test').val($question.parent_test);
                     $('#add_question').find('#name').val($question.question);
+                    $('#add_question').find('#type-answer').val($question.type_answer);
                     $('#add_question').modal('show');
                 }
             }

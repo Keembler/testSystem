@@ -15,15 +15,12 @@ if ($_SERVER['REQUEST_URI'] == '/') {
 else {
 	$page = substr($_SERVER['REQUEST_URI'], 1);
 
-	if ( !preg_match('/^[A-z0-9\-]{3,25}$/',$page)) {
+/*	if ( !preg_match('/^[A-z0-9\-]{3,25}$/',$page)) {
 		
 		exit('Not Correct URL: '.$page);
 		
-	}
+	}*/
 }
-
-
-
 
 if (isset($_POST['login_form'])) {
 	
@@ -87,6 +84,9 @@ if ( file_exists('adminpanel/'.$page.'.php') and $_SESSION['$root'] == 1 ) {
 }
 else if ( file_exists('auth/'.$page.'.php') ) { 
 	include('auth/'.$page.'.php');
+}
+else if ( file_exists('testing/'.$page.'.php') ) { 
+	include('testing/'.$page.'.php');
 }
 else if ($page === 'home' and $_SESSION['$root'] == 1 ) {
 	$page = 'adminka';

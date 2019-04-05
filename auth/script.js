@@ -13,7 +13,7 @@ $(function(){
 				if (status === 200) {
 					window.location = '/adminka';
 				}else if (status ===201) {
-					window.location = '/';
+					window.location = '/testirovanie';
 				}
 			}
 		});
