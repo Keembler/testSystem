@@ -26,15 +26,21 @@ if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['quest
 	 */
 	
 	$VALUES = "";
-	for ($i=0; $i < count($answers); $i++) { 
-		if ($i < count($answers)-1) {
-			$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."'),";
+	if (count($answers) > 1){
+		for ($i=0; $i < count($answers); $i++) { 
+			if ($i < count($answers)-1) {
+				$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."'),";
+			}
+			else {
+				$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."')";
+			}
 		}
-		else {
-			$VALUES .= "('".$answers[$i]->answer."',".$question['id'].",'".$answers[$i]->correct_answer."')";
-		}
+	} else {
+		$VALUES .= "('".$answers[0]->answer."',".$question['id'].",'".$answers[0]->correct_answer."'),";
 	}
-	
+
+	/* НЕ РАБОТАЕТ ДОБАВЛЕНИЕ ОТВЕТА СЛОВОМ */
+
 	$query_answers = mysqli_query($link, "INSERT INTO `answers` (`answer`, `parent_question`, `correct_answer`) VALUES $VALUES");
 
 	$question = json_encode($question);

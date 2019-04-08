@@ -80,9 +80,11 @@
 											</div>
 										</div>
 										<div class="form-group word">
-											<div class="title">Впришите правильное слово</div>
-											<input type="hidden" name="correct_answer" id="correct_answer" value="1">
-											<input type="text" class="form-control" name="answer">
+											<div class="input-group">
+												<div class="title">Впришите правильное слово</div>
+												<input type="hidden" name="correct_answer_word" id="correct_answer" value="1">
+												<input type="text" class="form-control" name="answer_word">
+											</div>
 										</div>
 										<button type="submit" class="btn btn-primary btn-add-question">Сохранить</button>
 									</form>

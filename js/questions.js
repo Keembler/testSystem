@@ -41,13 +41,20 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
 
         $('.active_block_answers .input-group').each(function(ind,inp_group){
             
-            if ($(inp_group).find('input[name="answer"]').val() !== '') {
+            if ($(inp_group).find('input[name="answer"]').length > 0 && $(inp_group).find('input[name="answer"]').val() !== '') {
                 var answer = {
                     answer: $(inp_group).find('input[name="answer"]').val(),
                     correct_answer: $(inp_group).find('input[name="correct_answer"]').prop('checked') ? 1 : 0
                 }
                 ANSWERS.push(answer);
                 
+            } else if($(inp_group).find('input[name="answer"]').length > 0 && $(inp_group).find('input[name="answer_word"]').val() !== '') {
+               var answer = {
+                    answer: $(inp_group).find('input[name="answer_word"]').val(),
+                    correct_answer: $(inp_group).find('input[name="correct_answer_word"]').val()
+                }
+                ANSWERS.push(answer); 
+                /* НЕ РАБОТАЕТ ДОБАВЛЕНИЕ СЛОВОМ */
             }
         });
         console.log("ANSWERS", ANSWERS);
