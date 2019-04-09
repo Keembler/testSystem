@@ -36,10 +36,8 @@ if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['quest
 			}
 		}
 	} else {
-		$VALUES .= "('".$answers[0]->answer."',".$question['id'].",'".$answers[0]->correct_answer."'),";
+		$VALUES .= "('".$answers[0]->answer."',".$question['id'].",'".$answers[0]->correct_answer."')";
 	}
-
-	/* НЕ РАБОТАЕТ ДОБАВЛЕНИЕ ОТВЕТА СЛОВОМ */
 
 	$query_answers = mysqli_query($link, "INSERT INTO `answers` (`answer`, `parent_question`, `correct_answer`) VALUES $VALUES");
 
