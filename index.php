@@ -79,9 +79,12 @@ include('controllers/users.php');
 include('controllers/tests.php');
 include('controllers/questions.php');
 
+/**
+* полечение вопрос/ответы
+**/
 function get_test_data($test_id,$link){
-	if(!$test_id) return;
-	$query = mysqli_query($link, "SELECT q.question, q.parent_test, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question WHERE q.parent_test = $test_id");
+	if(!$test_id) return false;
+	$query = mysqli_query($link, "SELECT q.question, q.parent_test, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test_id AND tests.enable = '1'");
 	$data = null;
 	while ($row = mysqli_fetch_assoc($query)) {
 		$data[$row['parent_question']][0] = $row['question'];
@@ -90,12 +93,39 @@ function get_test_data($test_id,$link){
 	return $data;
 }
 
+/**
+* получение правильных ответов к вопросам
+**/
+function get_correct_answers($test,$link){
+	if( !$test ) return false;
+	$query = mysqli_query($link, "SELECT q.id AS question_id, a.id AS answer_id FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test AND a.correct_answer = '1' AND tests.enable = '1'");
+	$data = null;
+	while($row = mysqli_fetch_assoc($query)){
+		$data[$row['question_id']] = $row['answer_id'];
+	}
+	return $data;
+}
+
+
 if(isset($_GET['test']) and $_GET['test'] !== ''){
 	$test_id = (int)$_GET['test'];
 	$test_data = get_test_data($test_id,$link);
 	/*echo "$test_data";*/
 	include('testing/testirovanie.php');
 	exit;
+}
+
+if (isset($_POST['test'])) {
+	$test = (int)$_POST['test'];
+	unset($_POST['test']);
+	$result = get_correct_answers($test,$link);
+	print_r($_POST);
+	print_r($result);
+	if ( !is_array($result) ) exit('Ошибка, массив не заполнен!');
+	// данные теста
+	$test_all_data = get_test_data($test,$link);
+	print_r($test_all_data);
+	die;
 }
 
 if ( file_exists('adminpanel/'.$page.'.php') and $_SESSION['$root'] == 1 ) { 

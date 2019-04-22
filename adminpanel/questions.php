@@ -40,38 +40,38 @@
 										<div class="form-group">
 											<div class="type-answer-title">Выберите тип ответа</div>
 											<div class="radio">
-												<label for="radio"><input type="radio" id="radio" name="type_answer" class="type-answer radio" value="radio">Один правильный ответ</label>
+												<label for="type_radio"><input type="radio" id="type_radio" name="type_answer" class="type-answer radio" value="radio">Один правильный ответ</label>
 											</div>
 											<div class="radio">
-												<label for="check"><input type="radio" id="check" name="type_answer" class="type-answer check" value="check">Несколько правильных ответов</label>
+												<label for="type_check"><input type="radio" id="type_check" name="type_answer" class="type-answer check" value="check">Несколько правильных ответов</label>
 											</div>
 											<div class="radio">
-												<label for="word"><input type="radio" id="word" name="type_answer" class="type-answer word" value="word">Ввод правильного ответа с клавиатуры</label>
+												<label for="type_word"><input type="radio" id="type_word" name="type_answer" class="type-answer word" value="word">Ввод правильного ответа с клавиатуры</label>
 											</div>
 										</div>
 										<div class="form-group radio">
 											<div class="title">Впишите варианты ответов и выберите один правильный</div>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input type="radio" name="correct_answer">
+													<input type="radio" id="radio" name="correct_answer">
 												</span>
 												<input type="text" class="form-control" name="answer">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input type="radio" name="correct_answer">
+													<input type="radio" id="radio" name="correct_answer">
 												</span>
 												<input type="text" class="form-control" name="answer">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input type="radio" name="correct_answer">
+													<input type="radio" id="radio" name="correct_answer">
 												</span>
 												<input type="text" class="form-control" name="answer">
 											</div>
 											<div class="input-group">
 												<span class="input-group-addon">
-													<input type="radio" name="correct_answer">
+													<input type="radio" id="radio" name="correct_answer">
 												</span>
 												<input type="text" class="form-control" name="answer">
 											</div>

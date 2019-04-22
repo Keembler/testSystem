@@ -1,17 +1,21 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
 
     
-
+    function clearInput () {
+        $('#add_question').find('input[type="text"],input[type="hidden"]').val("");
+        $('#add_question').find('input[type="checkbox"]').prop('checked',false);
+        $('#add_question').find('input[id="radio"]').prop('checked',false);
+    }
     function changeTypeAnswer () {
-        if($('input#radio').prop("checked")){
+        if($('input#type_radio').prop("checked")){
             $('.form-group.radio').css('display', 'block').addClass('active_block_answers');
             $('.form-group.check').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.word').css('display', 'none').removeClass('active_block_answers');
-        }else if($('input#check').prop("checked")){
+        }else if($('input#type_check').prop("checked")){
             $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.check').css('display', 'block').addClass('active_block_answers');
             $('.form-group.word').css('display', 'none').removeClass('active_block_answers');
-        }else if($('input#word').prop("checked")){
+        }else if($('input#type_word').prop("checked")){
             $('.form-group.radio').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.check').css('display', 'none').removeClass('active_block_answers');
             $('.form-group.word').css('display', 'block').addClass('active_block_answers');
@@ -94,6 +98,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                                         </td>
                                     </tr>`;
                         $('.list_questions').append(newTR);
+                        clearInput();
                     }
                 }
                 else {
@@ -158,8 +163,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
      * Функция для очистки полей после закрытия модального окна
      */
     $('#add_question').on('hidden.bs.modal', function (e) {
-        $('#add_question').find('input[type="text"],input[type="hidden"]').val("");
-        $('#add_question').find('input[type="checkbox"]').prop('checked',false);
+        clearInput();
         $('#add_question').find('input[type="radio"]').prop('checked',false);
         $('.status-text').removeClass('text-success').removeClass('text-danger').hide();
     })

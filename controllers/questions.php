@@ -6,7 +6,6 @@ if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['quest
 	$answers = json_decode($_POST['answers']);
 	$type_answer = $_POST['type_answer']; 
 
-
 	/**
 	 * Записываем новый вопрос в базу данных
 	 */

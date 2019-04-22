@@ -95,7 +95,7 @@ ul{
 .left-col ul li a:hover{
 	background: rgba(0,0,0,.5);
 }
-.users h1{
+.users h2{
 	margin-bottom: 10px;
 }
 .users tbody tr td {
@@ -192,4 +192,74 @@ ul{
 .testing .list-group a{
 	margin: 10px 0;
 	border-radius: 5px;
+}
+.q.header-h2 {
+	position: relative;
+	margin-bottom: .5rem;
+	min-height: 33px;
+}
+
+.q.header-h2 h2 {
+	font-size: 1.5rem;
+	margin-bottom: 0;
+	padding-left: 4rem;
+	color: #e91e63;
+	font-weight: bold;
+}
+
+.q.header-h2 h2::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 3.5rem;
+	height: 3.5rem;
+	background: #e91e63;
+}
+
+.q.header-h2 h2::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 3.5rem;
+	width: 100%;
+	height: .25rem;
+	background-color: #e91e63;
+}
+.test-data .none {
+	display: none;
+}
+.test-data .btn{
+	border-radius: 0;
+	text-transform: uppercase;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	transition: all 0.4s ease 0s;
+	background: none;
+}
+.test-data .btn:before{
+	content: "";
+	width: 210%;
+	height: 210%;
+	position: absolute;
+	top: -120px;
+	left: 30px;
+	transform: skew(67deg);
+	z-index: -1;
+	transition: all 0.4s ease 0s;
+}
+.test-data .btn:hover:before{
+	top: -20px;
+	left: -52px;
+}
+.test-data .btn.red{
+	border: 1px solid #ff3939;
+	color: #ff3939;
+}
+.test-data .btn.red:hover{
+	color: #fff;
+}
+.test-data .btn.red:hover:before{
+	background: #ff3939;
 }

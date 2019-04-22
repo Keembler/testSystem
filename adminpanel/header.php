@@ -16,7 +16,7 @@
 			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 				<div class="row header">
 					<div class="col-md-4 left">
-						<a href="../" target="_blank" class="site-name">Перейти к системе тестирования</a>
+						<a href="/testirovanie" target="_blank" class="site-name">Перейти к системе тестирования</a>
 					</div>
 					<div class="col-md-5 col-md-offset-3 right text-right">
 						<div class="info">Вы вошли как <?php echo "$role"; ?></div>
