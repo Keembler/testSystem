@@ -263,3 +263,12 @@ ul{
 .test-data .btn.red:hover:before{
 	background: #ff3939;
 }
+
+.question-res{
+	border: 10px solid #eee;
+	box-sizing: border-box;
+	padding: 10px;
+}
+.question-res .a{
+	margin-left: 15px;
+}

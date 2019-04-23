@@ -14,6 +14,7 @@ $(document).ready(function() {
 			type: 'post',
 			data: res,
 			success: function(resp){
+				//$('.content').html(resp);
 				console.log(resp);
 			},
 			error: function(){
