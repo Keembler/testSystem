@@ -51,57 +51,41 @@
 										</div>
 										<div class="form-group radio">
 											<div class="title">Впишите варианты ответов и выберите один правильный</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="radio" id="radio" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
+											<div class="input-groups">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<input type="radio" id="radio" name="correct_answer">
+													</span>
+													<input type="text" class="form-control" name="answer">
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<input type="radio" id="radio" name="correct_answer">
+													</span>
+													<input type="text" class="form-control" name="answer">
+												</div>
 											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="radio" id="radio" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="radio" id="radio" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="radio" id="radio" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
+											<a href="javascript:void(0)" class='glyphicon glyphicon-plus add-answer-radio'></a>
+											<a href="javascript:void(0)" class='glyphicon glyphicon-remove remove-answer-radio'></a>
 										</div>
 										<div class="form-group check">
 											<div class="title">Впишите варианты ответов и выберите несколько правильных</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
+											<div class="input-groups">
+												<div class="input-group">
+													<span class="input-group-addon">
+														<input type="checkbox" name="correct_answer">
+													</span>
+													<input type="text" class="form-control" name="answer">
+												</div>
+												<div class="input-group">
+													<span class="input-group-addon">
+														<input type="checkbox" name="correct_answer">
+													</span>
+													<input type="text" class="form-control" name="answer">
+												</div>
 											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
-											<div class="input-group">
-												<span class="input-group-addon">
-													<input type="checkbox" name="correct_answer">
-												</span>
-												<input type="text" class="form-control" name="answer">
-											</div>
+											<a href="javascript:void(0)" class='glyphicon glyphicon-plus add-answer-check'></a>
+											<a href="javascript:void(0)" class='glyphicon glyphicon-remove remove-answer-check'></a>
 										</div>
 										<div class="form-group word">
 											<div class="input-group">

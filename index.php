@@ -84,11 +84,12 @@ include('controllers/questions.php');
 **/
 function get_test_data($test_id,$link){
 	if(!$test_id) return false;
-	$query = mysqli_query($link, "SELECT q.question, q.parent_test, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test_id AND tests.enable = '1'");
+	$query = mysqli_query($link, "SELECT q.question, q.parent_test, q.type_answer, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test_id AND tests.enable = '1'");
 	$data = null;
 	while ($row = mysqli_fetch_assoc($query)) {
 		$data[$row['parent_question']][0] = $row['question'];
 		$data[$row['parent_question']][$row['id']] = $row['answer'];
+		$data[$row['parent_question']]['type_answer'] = $row['type_answer'];
 	}
 	return $data;
 }
@@ -118,15 +119,17 @@ function get_test_data_result($test_all_data,$result,$resuser){
 		$test_all_data[$q]['correct_answer'] = $a;
 
 		// добавим в массив данные о неотвеченных вопросах
-		if( !isset($_POST[$q]) ){
+		if( !isset($resuser[$q]) ){
 			$test_all_data[$q]['incorrect_answer'] = 0;
 		}
 	}
 
 	// добавим неверный ответ, если таковой был
 	foreach ($resuser as $q => $a) {
-		if( $test_all_data[$q]['correct_answer'] != $a ){
-			$test_all_data[$q]['incorrect_answer'] = $a;
+		if($q !== 'test'){
+			if( $test_all_data[$q]['correct_answer'] != $a ){
+				$test_all_data[$q]['incorrect_answer'] = $a;
+			}
 		}
 	}
 	return $test_all_data;
@@ -149,7 +152,7 @@ function print_result($test_all_data_result){
 	$print_res = '<div class="questions">';
 		$print_res .= '<div class="count-res">';
 			$print_res .= "<div class='all-count'>Всего вопросов: <b>{$all_count}</b></div>";
-			$print_res .= "<div class='correct-count'>Отвечего верно: <b>{$correct_answer_count}</b></div>";
+			$print_res .= "<div class='correct-count'>Отвечено верно: <b>{$correct_answer_count}</b></div>";
 			$print_res .= "<div class='incorrect-count'>Отвечено неверно: <b>{$incorrect_answer_count}</b></div>";
 			$print_res .= "<div class='percent'>Процент верных ответов: <b>{$percent}</b></div>";
 		$print_res .= '</div>';

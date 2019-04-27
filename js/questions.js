@@ -21,8 +21,23 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             $('.form-group.word').css('display', 'block').addClass('active_block_answers');
         }
     }
+    function addInput() {
+        $('.add-answer-radio').on('click', function(){
+            $('.form-group.radio .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='radio' id='radio' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
+        })
+        $('.add-answer-check').on('click', function(){
+            $('.form-group.check .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='checkbox' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
+        })
+        $('.remove-answer-radio').on('click', function(){
+            $('.form-group.radio .input-groups > .input-group:last-child').remove();
+        })
+        $('.remove-answer-check').on('click', function(){
+            $('.form-group.check .input-groups > .input-group:last-child').remove();
+        })
+    }
 
     changeTypeAnswer();
+    addInput();
 
     $('.type-answer').on('change', function(){
         changeTypeAnswer();
