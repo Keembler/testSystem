@@ -21,23 +21,42 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             $('.form-group.word').css('display', 'block').addClass('active_block_answers');
         }
     }
-    function addInput() {
-        $('.add-answer-radio').on('click', function(){
+
+    function add_answer_radio (count = 1) {
+        if (count > 1) {
+            for (var i = 0; i < count; i++) {
+                $('.form-group.radio .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='radio' id='radio' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
+            }
+        }
+        else {
             $('.form-group.radio .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='radio' id='radio' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
-        })
-        $('.add-answer-check').on('click', function(){
-            $('.form-group.check .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='checkbox' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
-        })
-        $('.remove-answer-radio').on('click', function(){
-            $('.form-group.radio .input-groups > .input-group:last-child').remove();
-        })
-        $('.remove-answer-check').on('click', function(){
-            $('.form-group.check .input-groups > .input-group:last-child').remove();
-        })
+        }
     }
+    function add_answer_check (count = 1) {
+        if (count > 1) {
+            for (var i = 0; i < count; i++) {
+                $('.form-group.check .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='checkbox' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
+            }
+        }
+        else {
+            $('.form-group.check .input-groups').append("<div class='input-group'><span class='input-group-addon'><input type='checkbox' name='correct_answer'></span><input type='text' class='form-control' name='answer'></div>");
+        }
+        
+    }
+    $('.add-answer-radio').on('click', function(){
+        add_answer_radio();
+    })
+    $('.add-answer-check').on('click', function(){
+        add_answer_check();
+    })
+    $('.remove-answer-radio').on('click', function(){
+        $('.form-group.radio .input-groups > .input-group:last-child').remove();
+    })
+    $('.remove-answer-check').on('click', function(){
+        $('.form-group.check .input-groups > .input-group:last-child').remove();
+    })
 
     changeTypeAnswer();
-    addInput();
 
     $('.type-answer').on('change', function(){
         changeTypeAnswer();
@@ -62,6 +81,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             
             if ($(inp_group).find('input[name="answer"]').length > 0 && $(inp_group).find('input[name="answer"]').val() !== '') {
                 var answer = {
+                    id: $(inp_group).find('input[name="answer"]').attr('data-id') ? $(inp_group).find('input[name="answer"]').attr('data-id') : 0,
                     answer: $(inp_group).find('input[name="answer"]').val(),
                     correct_answer: $(inp_group).find('input[name="correct_answer"]').prop('checked') ? 1 : 0
                 }
@@ -69,6 +89,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                 
             } else if($(inp_group).find('input[name="answer_word"]').length > 0 && $(inp_group).find('input[name="answer_word"]').val() !== '') {
                var answer = {
+                    id: $(inp_group).find('input[name="answer_word"]').attr('data-id') ? $(inp_group).find('input[name="answer_word"]').attr('data-id') : 0,
                     answer: $(inp_group).find('input[name="answer_word"]').val(),
                     correct_answer: $(inp_group).find('input[name="correct_answer_word"]').prop('checked') ? 1 : 0
                 }
@@ -126,7 +147,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
     });
 
     /**
-     * Функция для удаления теста
+     * Функция для удаления вопроса
      */
     $(document).on('click', '.remove-question', function(e){
         e.preventDefault();
@@ -146,7 +167,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
     });
 
     /**
-     * Функция получения информации о тесте для редактирования
+     * Функция получения информации о вопросе для редактирования
      */
     $(document).on('click', '.glyphicon-pencil', function(e){
         e.preventDefault();
@@ -160,14 +181,39 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             success: function(resp) {
                 console.log("Пришёл ответ", resp);
                 var rsp = JSON.parse(resp);
+                console.log(rsp);
                 if (rsp.status === 200) {
-                    var $question = rsp.question;
-                    $('#add_question').find('#id_question').val($question.id);
-                    $('#add_question').find('#edited').val(1);
-                    $('#add_question').find('#parent_test').val($question.parent_test);
-                    $('#add_question').find('#name').val($question.question);
-                    $('#add_question').find('#type-answer').val($question.type_answer);
-                    $('#add_question').modal('show');
+                    var $question = rsp.question,
+                        $answers = rsp.answers,
+                        modal_add_q = $('#add_question');
+
+                    modal_add_q.find('.modal-title').text('Редактирование');
+                    modal_add_q.find('#id_question').val($question.id);
+                    modal_add_q.find('#edited').val(1);
+                    modal_add_q.find('#parent_test').val($question.parent_test);
+                    modal_add_q.find('#name').val($question.question);
+                    modal_add_q.find('#type-answer').val($question.type_answer);
+                    modal_add_q.find('#type_'+$question.type_answer).prop('checked',true);
+                    modal_add_q.find('#type_'+$question.type_answer).trigger('change');
+
+                    if ($answers.length > 2 && modal_add_q.find('.form-group.'+$question.type_answer+' .input-group').length <= 2) {
+                        if ($question.type_answer == 'radio') {
+                            add_answer_radio($answers.length-2);
+                        }
+                        else if ($question.type_answer == 'check') {
+                            add_answer_check($answers.length-2);
+                        }
+                    }
+                    
+                    
+                    modal_add_q.find('.form-group.'+$question.type_answer+' .input-group').each(function(i){
+                        var answer = $(this);
+                        $answers[i].correct_answer === 1 && answer.find('[name="correct_answer"]').prop('checked',true);
+                        answer.find('[name="answer"]').val($answers[i].answer);
+                        answer.find('[name="answer"]').attr('data-id',$answers[i].id);
+                    })
+
+                    modal_add_q.modal('show');
                 }
             }
         });
@@ -181,6 +227,8 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
         clearInput();
         $('#add_question').find('input[type="radio"]').prop('checked',false);
         $('.status-text').removeClass('text-success').removeClass('text-danger').hide();
+        $('#add_question').find('.modal-title').text('Новый вопрос');
+        $('#add_question').find('#edited').val('');
     })
 
 });

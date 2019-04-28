@@ -64,16 +64,20 @@ else if ($page === 'rm_question' and $_SESSION['$root'] == 1 and isset($_POST['i
 }
 else if ($page === 'ed_question' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
 	$questionID = $_POST['id'];
-
+	$answers = [];
 	$query = mysqli_query($link, "SELECT * FROM `questions` WHERE `id` = $questionID");
+	$query2 = mysqli_query($link, "SELECT * FROM `answers` WHERE `parent_question` = $questionID");
 	$question = json_encode(mysqli_fetch_array($query));
-
+	
+	while($answer = mysqli_fetch_array($query2)){
+		$answers[] = json_decode('{ "id": '.$answer["id"].', "answer": "'.$answer["answer"].'", "parent_question": '.$answer["parent_question"].', "correct_answer": '.$answer["correct_answer"].'}');
+	}
+	$json_answers = json_encode($answers);
 
 	/* НЕ ДОДЕЛАНО РЕДАКТИРОВАНИЕ */
 
-
-	if ($query) {
-		$resp = '{"status": 200, "text":"Вопрос c ID = '.$questionID.' получен", "question":'.$question.'}';
+	if ($query and $query2) {
+		$resp = '{"status": 200, "text":"Вопрос c ID = '.$questionID.' получен", "question":'.$question.', "answers": '.$json_answers.'}';
 	}
 	else {
 		$resp = '{"status": 400, "text":"Ошибочка"}';
@@ -84,13 +88,25 @@ else if ($page === 'save_question' and $_SESSION['$root'] == 1) {
 	
 	$questionID = $_POST['id_question'];
 	$name = $_POST['question'];
+	$type_answer = $_POST['type_answer'];
 	$test = $_POST['parent_test'];
+	$answers = json_decode($_POST['answers']);
 
 	if (isset($_POST['question']))  {
-		$query = mysqli_query($link, "UPDATE `questions` SET `question` = '$name', `parent_test` = '$test' WHERE `id` = $questionID");
+		$query = mysqli_query($link, "UPDATE `questions` SET `question` = '$name', `parent_test` = $test, `type_answer` = '$type_answer' WHERE `id` = $questionID");
 	}
 
-	if ($query) {
+	if (isset($_POST['answers']))  {
+		$ok = false;
+		for ($i=0; $i < count($answers); $i++) { 
+			$query2 = mysqli_query($link, "UPDATE `answers` SET `answer` = '".$answers[$i]->answer."', `parent_question` = ".$questionID.", `correct_answer` = ".$answers[$i]->correct_answer." WHERE `id` = ".$answers[$i]->id);
+			if ($query2) {
+				$ok = true;
+			}
+		}
+	}
+
+	if ($query or $ok) {
 		$resp = '{"status": 200, "text":"Новая информация сохранена успешно!"}';
 	}
 	else {
