@@ -81,6 +81,7 @@ if (isset($_SESSION['$fio'])) {
 
 include('controllers/users.php');
 include('controllers/tests.php');
+include('controllers/polls.php');
 include('controllers/questions.php');
 include('controllers/testirovanie.php');
 

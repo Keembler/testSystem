@@ -106,6 +106,9 @@ hr{
 .left-col ul li a:active{
 	background: rgba(0,0,0,.5);
 }
+.left-col ul li.active a{
+	background: rgba(0,0,0,.5);
+}
 .users h2{
 	margin-bottom: 10px;
 }
@@ -135,6 +138,21 @@ hr{
 	background: none;
 }
 .tests .glyphicon-plus {
+	cursor: pointer;
+	color: green;
+}
+.polls .glyphicon-remove {
+	cursor: pointer;
+	color: red;
+}
+.polls .glyphicon-pencil {
+	cursor: pointer;
+	color: black;
+	border: none;
+	outline: none;
+	background: none;
+}
+.polls .glyphicon-plus {
 	cursor: pointer;
 	color: green;
 }
