@@ -6,7 +6,7 @@ $(document).ready(function() {
 
 		$('.question').each(function(){
 			var id = $(this).data('id');
-			res[id] = $('input[name=question-'+ id +']:checked').val();
+			res[id] = $('input[name=question-'+ id +']:checked').length > 0 ? $('input[name=question-'+ id +']:checked').val() : $('input[type="text"][name=question-'+ id +']').val();
 		});
 
 		$.ajax({
@@ -15,7 +15,6 @@ $(document).ready(function() {
 			data: res,
 			success: function(resp){
 				$('.content').html(resp);
-				console.log(resp);
 			},
 			error: function(){
 				alert('Ошибка');

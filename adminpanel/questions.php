@@ -91,7 +91,7 @@
 											<div class="input-group">
 												<div class="title">Впришите правильное слово</div>
 												<input type="hidden" name="correct_answer_word" id="correct_answer" checked>
-												<input type="text" class="form-control" name="answer_word">
+												<input type="text" class="form-control" name="answer">
 											</div>
 										</div>
 										<button type="submit" class="btn btn-primary btn-add-question">Сохранить</button>

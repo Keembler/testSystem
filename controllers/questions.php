@@ -74,8 +74,6 @@ else if ($page === 'ed_question' and $_SESSION['$root'] == 1 and isset($_POST['i
 	}
 	$json_answers = json_encode($answers);
 
-	/* НЕ ДОДЕЛАНО РЕДАКТИРОВАНИЕ */
-
 	if ($query and $query2) {
 		$resp = '{"status": 200, "text":"Вопрос c ID = '.$questionID.' получен", "question":'.$question.', "answers": '.$json_answers.'}';
 	}

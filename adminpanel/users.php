@@ -38,7 +38,6 @@
 											<select name="role" id="role" class="form-control" required="required">
 												<option value="Администратор">Администратор</option>
 												<option value="Преподаватель">Преподаватель</option>
-												<option value="Сотрудник колледжа">Сотрудник колледжа</option>
 												<option value="Студент">Студент</option>
 											</select>
 										</div>

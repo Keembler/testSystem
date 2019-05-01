@@ -12,6 +12,15 @@
 </head>
 <body>
 	<div class="testing">
-		<div class="container">
+		<div class="container-fluid">
+			<div class="row testirovanie-header">
+				<div class="col-md-4 left">
+					<a href="/adminka" target="_blank" class="site-name">Перейти в панель администратора</a>
+				</div>
+				<div class="col-md-5 col-md-offset-3 right text-right">
+					<div class="info">Вы вошли как <?php echo "$fio"; ?></div>
+					<a href="/adminpanel/exit.php" class="logout">Выйти</a>
+				</div>
+			</div>	<!-- .header -->
 		    <div class="row">
-		        <div class="col-sm-offset-2 col-sm-8 content">
+		        <div class="col-sm col-sm-8 content testirovanie">

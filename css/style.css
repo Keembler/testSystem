@@ -10,6 +10,11 @@ ul{
 	margin: 0;
 	list-style: none;
 }
+hr{
+	margin: 0;
+	border: 1px solid #000;
+	margin-bottom: 5px;
+}
 .status-text {
 	display: none;
 }
@@ -35,31 +40,36 @@ ul{
 	box-sizing: border-box;
 	margin: 10px 0;
 }
-.header{
+.header,
+.testirovanie-header{
 	background: #333;
 	padding: 15px;
 	position: relative;
 	z-index: 9;
-	
 }
-.header .left{
+.header .left,
+.testirovanie-header .left{
 	float: left;
 }
-.header .right{
+.header .right,
+.testirovanie-header .right{
 	float: right;
 }
-.header .left .site-name{
+.header .left .site-name,
+.testirovanie-header .left .site-name{
 	text-decoration: none;
 	color: #fff;
 	font-size: 18px;
 }
-.header .right .info{
+.header .right .info,
+.testirovanie-header .right .info{
 	display: inline-block;
 	vertical-align: top;
 	color: #fff;
 	font-size: 18px;
 }
-.header .right a{
+.header .right a,
+.testirovanie-header .right a{
 	display: inline-block;
 	vertical-align: top;
 	text-decoration: none;
@@ -92,7 +102,8 @@ ul{
 	line-height: 14px;
 	color: #fff;
 }
-.left-col ul li a:hover{
+.left-col ul li a:hover,
+.left-col ul li a:active{
 	background: rgba(0,0,0,.5);
 }
 .users h2{
@@ -187,6 +198,10 @@ ul{
 		width: calc(100% - 200px);
 		margin-left: 200px;
 	}
+	.content.testirovanie {
+		width: calc(100% - 200px);
+		margin-left: 100px;
+	}
 	.header {
 		margin-left: 185px;
 	}
@@ -213,7 +228,7 @@ ul{
 	content: "";
 	position: absolute;
 	left: 0;
-	top: 0;
+	bottom: 0;
 	width: 3.5rem;
 	height: 3.5rem;
 	background: #e91e63;
@@ -223,7 +238,7 @@ ul{
 	content: "";
 	position: absolute;
 	left: 0;
-	top: 3.5rem;
+	bottom: -2px;
 	width: 100%;
 	height: .25rem;
 	background-color: #e91e63;
@@ -231,7 +246,11 @@ ul{
 .test-data .none {
 	display: none;
 }
-.test-data .btn{
+.test-data .buttons{
+	margin-top: 30px;
+}
+.test-data .btn,
+.testirovanie .questions .btn{
 	border-radius: 0;
 	text-transform: uppercase;
 	position: relative;
@@ -240,7 +259,8 @@ ul{
 	transition: all 0.4s ease 0s;
 	background: none;
 }
-.test-data .btn:before{
+.test-data .btn:before,
+.testirovanie .questions .btn:before{
 	content: "";
 	width: 210%;
 	height: 210%;
@@ -251,26 +271,60 @@ ul{
 	z-index: -1;
 	transition: all 0.4s ease 0s;
 }
-.test-data .btn:hover:before{
+.test-data .btn:hover:before,
+.testirovanie .questions .btn:hover:before{
 	top: -20px;
 	left: -52px;
 }
-.test-data .btn.red{
+.test-data .btn.red,
+.testirovanie .questions .btn.red{
 	border: 1px solid #ff3939;
 	color: #ff3939;
 }
-.test-data .btn.red:hover{
+.test-data .btn.red:hover,
+.testirovanie .questions .btn.red:hover{
 	color: #fff;
 }
-.test-data .btn.red:hover:before{
+.test-data .btn.red:hover:before,
+.testirovanie .questions .btn.red:hover:before{
 	background: #ff3939;
 }
-
-.question-res{
+.count-question{
+	position: absolute;
+	top: 4px;
+	left: 8px;
+	z-index: 999;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	width: 20px;
+	text-align: center;
+}
+.testirovanie .questions{
 	border: 10px solid #eee;
 	box-sizing: border-box;
 	padding: 10px;
 }
+.question-res{
+	padding: 10px;
+	box-sizing: border-box;
+	margin-bottom: 15px;
+}
 .question-res .a{
 	margin-left: 15px;
+}
+.question-res.ok{
+	background: #F0FAF1;
+	border: 1px dotted #ADC092;
+}
+.question-res.error{
+	background: #FFEDED;
+	border: 1px dotted #DDB1B1;
+}
+.question-res .a.ok2{
+	color: green;
+}
+.question-res .a.error2{
+	text-decoration: line-through;
+	color: #ff0000;
 }

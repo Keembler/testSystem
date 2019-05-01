@@ -1,7 +1,6 @@
 <?
 include('header.php');
-
-
+$i = 0;
 
 if (isset($test_data) && $test_data !== '') {
 	?>
@@ -13,11 +12,11 @@ if (isset($test_data) && $test_data !== '') {
 		<div class="question" data-id="<?=$id_question?>" id="question-<?=$id_question?>">
 			<?php foreach($item as $id_answer => $answer): // проходимся по массиву вопрос/ответы ?>
 				<?php if(!$id_answer): // выводим вопрос ?>
-					<div class="q header-h2"><span class="count_question"></span><h2> <?=$answer?> </h2></div>
+					<div class="q header-h2"><span class="count-question"><? $i++; echo $i; ?></span><h2> <?=$answer?> </h2></div>
 				<?php elseif($id_answer !== 'type_answer'): // выводим варианты ответов ?>
 					<? if($item['type_answer'] == 'radio'): ?>
 					<p class="a" style="margin-left: 50px;">
-						<input type="radio" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$id_answer?>">
+						<input type="radio" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$answer?>">
 						<label for="answer-<?=$id_answer?>"><?=$answer?></label>
 					</p>
 					<? elseif($item['type_answer'] == 'check'): ?>
@@ -27,7 +26,7 @@ if (isset($test_data) && $test_data !== '') {
 						</p>
 					<? elseif($item['type_answer'] == 'word'): ?>
 						<p class="a" style="margin-left: 50px;">
-							<input type="text" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="">
+							<input type="text" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>">
 						</p>
 					<? endif; ?>
 
@@ -40,7 +39,7 @@ if (isset($test_data) && $test_data !== '') {
 	<?php endforeach; // $test_data ?>
 
 	<div class="buttons">
-		 <div class="col-sm-3"><button type="button" id="btn" class="btn btn-lg red">Закончить тест</button></div>
+		<div class="col-sm-3"><button type="button" id="btn" class="btn btn-lg red">Закончить тест</button></div>
 	</div>
 
 	</div> <!-- .test-data -->
