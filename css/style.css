@@ -24,22 +24,6 @@ hr{
 .bg-white {
 	background: white;
 }
-.form-login{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin-left: -150px;
-	margin-top: -100px;
-	box-shadow: 0 4px 10px 0 rgba(0,0,0,.5);
-	padding: 10px;
-}
-.form-login form input{
-	width: 200px;
-	height: 35px;
-	padding: 5px;
-	box-sizing: border-box;
-	margin: 10px 0;
-}
 .header,
 .testirovanie-header{
 	background: #333;
@@ -103,7 +87,8 @@ hr{
 	color: #fff;
 }
 .left-col ul li a:hover,
-.left-col ul li a:active{
+.left-col ul li a:active,
+.left-col ul li a:visited{
 	background: rgba(0,0,0,.5);
 }
 .left-col ul li.active a{
