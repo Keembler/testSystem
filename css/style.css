@@ -141,6 +141,18 @@ hr{
 	cursor: pointer;
 	color: green;
 }
+.results .glyphicon-remove {
+	cursor: pointer;
+	color: red;
+	text-decoration: none;
+}
+.results .glyphicon-eye-open {
+	cursor: pointer;
+	color: green;
+	border: none;
+	outline: none;
+	background: none;
+}
 .questions .modal-dialog{
 	width: 500px;
 }

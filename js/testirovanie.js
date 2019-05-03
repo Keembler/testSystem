@@ -1,5 +1,4 @@
 $(document).ready(function() {
-	$url = '/testirovanie';
 	$('#btn').on('click', function(){
 		var test = $('#test-id').text();
 		var res = {'test':test};
@@ -10,7 +9,7 @@ $(document).ready(function() {
 		});
 
 		$.ajax({
-			url: $url,
+			url: '/testirovanie',
 			type: 'post',
 			data: res,
 			success: function(resp){

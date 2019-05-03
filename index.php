@@ -84,6 +84,7 @@ include('controllers/tests.php');
 include('controllers/polls.php');
 include('controllers/questions.php');
 include('controllers/testirovanie.php');
+include('controllers/results_test.php');
 
 if(isset($_GET['test']) and $_GET['test'] !== ''){
 	$test_id = (int)$_GET['test'];
