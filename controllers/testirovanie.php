@@ -22,9 +22,15 @@ function get_correct_answers($test,$link){
 	$query = mysqli_query($link, "SELECT q.id AS question_id, a.answer AS answer_id FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test AND a.correct_answer = '1' AND tests.enable = '1'");
 	$data = null;
 	while($row = mysqli_fetch_assoc($query)){
-		$data[$row['question_id']] = $row['answer_id'];
+		if ($data !== null and array_key_exists($row['question_id'], $data)) {
+			$data[$row['question_id']] = $data[$row['question_id']] .','.$row['answer_id'];
+		}
+		else {
+			$data[$row['question_id']] = $row['answer_id'];
+		}
+		
 	}
-	var_dump($data);
+	// var_dump($data);
 	return $data;
 }
 
@@ -118,7 +124,9 @@ function print_result($test_all_data_result){
 if (isset($_POST['test'])) {
 	$test = (int)$_POST['test'];
 	$resuser = $_POST;
+
 	$result = get_correct_answers($test,$link);
+
 	if ( !is_array($result) ) exit('Ошибка, массив не заполнен!');
 	// данные теста
 	$test_all_data = get_test_data($test,$link);
