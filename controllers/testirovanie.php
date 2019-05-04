@@ -87,6 +87,7 @@ function print_result($test_all_data_result){
 	// вывод теста...
 	foreach ($test_all_data_result as $id_question => $item) { // получаем вопрос + ответы
 		$correct_answer = explode(",",$item['correct_answer']);
+		
 		$incorrect_answer = null;
 		if( isset($item['incorrect_answer']) ){
 			$incorrect_answer = explode(",",$item['incorrect_answer']);
@@ -95,6 +96,7 @@ function print_result($test_all_data_result){
 			$class = 'question-res ok';
 		}
 		$print_res .= "<div class='$class'>";
+		
 		foreach ($item as $id_answer => $answer) { // проходим по массиву ответов
 			if( $id_answer === 0 ){
 				// вопрос
