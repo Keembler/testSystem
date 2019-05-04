@@ -62,7 +62,7 @@ function get_test_data_result($test_all_data,$result,$resuser){
 	return $test_all_data;
 }
 
-function print_result($test_all_data_result){
+function print_result($test_all_data_result,$link,$test,$id_user){
 	$all_count = count($test_all_data_result); // кол-во вопросов
 	$correct_answer_count = 0; // кол-во верных ответов
 	$incorrect_answer_count = 0; // кол-во неверных ответов
@@ -105,23 +105,38 @@ function print_result($test_all_data_result){
 				$class = 'a';
 				foreach ($correct_answer as $key => $value) {
 					// ответ
-					if( strtolower($answer) == strtolower($value) ){
+					if( $answer == $value ){
 						// если это верный ответ
 						$class = 'a ok2';
 						break;
 					}
 				}
-				foreach ($incorrect_answer as $key => $value) {
-					// ответ
-					if( strtolower($answer) == strtolower($value) and strtolower($correct_answer[$key]) == strtolower($value)){
-						// если это верный ответ
-						$class = 'a ok2';
-						break;
-					}elseif (strtolower($answer) == strtolower($value) and strtolower($correct_answer[$key]) != strtolower($value)){
-						// если это неверный ответ
-						$class = 'a error2';
-					}
-				}
+				if (isset($incorrect_answer)) {
+		          if (is_array($incorrect_answer)) {
+		            foreach ($incorrect_answer as $key => $value) {
+		              // ответ
+		              // print_r($correct_answer);
+		              if( $answer == $value and in_array($value, $correct_answer)){
+		                // если это верный ответ
+		                $class = 'a ok2';
+		                break;
+		              }elseif ($answer == $value and !in_array($value, $correct_answer)){
+		                // если это неверный ответ
+		                $class = 'a error2';
+		              }
+		            }
+		          }
+		          else {
+		            if( $incorrect_answer == $answer){
+		              // если это верный ответ
+		              $class = 'a ok2';
+		              break;
+		            }else{
+		              // если это неверный ответ
+		              $class = 'a error2';
+		            }
+		          }
+		        }
 				$print_res .= "<p class='$class'>$answer</p>";
 			}
 		}
@@ -129,6 +144,8 @@ function print_result($test_all_data_result){
 	}
 	$print_res .= '<a href="/testirovanie" id="btn" class="btn red">Закончить</a>';
 	$print_res .= '</div>'; // class="questions"
+
+	$query = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`) VALUES('$test', '$id_user', '$percent')");
 
 	return $print_res;
 }
@@ -145,6 +162,6 @@ if (isset($_POST['test'])) {
 	// 1 - массив вопрос/ответы, 2 - правильные ответы, 3 - ответы пользователя
 	$test_all_data_result = get_test_data_result($test_all_data,$result,$resuser);
 	// print_r($test_all_data_result);
-	echo print_result($test_all_data_result);
+	echo print_result($test_all_data_result,$link,$test,$id_user);
 	die;
 }

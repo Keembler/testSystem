@@ -43,6 +43,7 @@ if (isset($_POST['login_form'])) {
 		        
 					$_SESSION['$logSESS'] = $log_and_pass['login'];//создаем глобальную переменную
 					$_SESSION['$role'] = $log_and_pass['role'];
+					$_SESSION['$id_user'] = $log_and_pass['id'];
 					$_SESSION['$fio'] = $log_and_pass['fio'];
 					$_SESSION['$root'] = $log_and_pass['root'];
 					//header("location: /adminka");
@@ -76,6 +77,9 @@ if (isset($_SESSION['$role'])) {
 }
 if (isset($_SESSION['$fio'])) {
 	$fio = $_SESSION['$fio'];
+}
+if (isset($_SESSION['$id_user'])) {
+	$id_user = $_SESSION['$id_user'];
 }
 //ПРОВЕРКА АВТОРИЗАЦИИ
 
