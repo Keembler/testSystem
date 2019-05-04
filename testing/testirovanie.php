@@ -21,7 +21,7 @@ if (isset($test_data) && $test_data !== '') {
 					</p>
 					<? elseif($item['type_answer'] == 'check'): ?>
 						<p class="a" style="margin-left: 50px;">
-							<input type="checkbox" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$id_answer?>">
+							<input type="checkbox" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$answer?>">
 							<label for="answer-<?=$id_answer?>"><?=$answer?></label>
 						</p>
 					<? elseif($item['type_answer'] == 'word'): ?>

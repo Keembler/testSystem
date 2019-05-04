@@ -86,10 +86,10 @@ function print_result($test_all_data_result){
 
 	// вывод теста...
 	foreach ($test_all_data_result as $id_question => $item) { // получаем вопрос + ответы
-		$correct_answer = $item['correct_answer'];
+		$correct_answer = explode(",",$item['correct_answer']);
 		$incorrect_answer = null;
 		if( isset($item['incorrect_answer']) ){
-			$incorrect_answer = $item['incorrect_answer'];
+			$incorrect_answer = explode(",",$item['incorrect_answer']);
 			$class = 'question-res error';
 		}else{
 			$class = 'question-res ok';
@@ -100,15 +100,25 @@ function print_result($test_all_data_result){
 				// вопрос
 				$print_res .= "<p class='q'><b>$answer</b></p><hr>";
 			}elseif( is_numeric($id_answer) ){
-				// ответ
-				if( $id_answer == $correct_answer ){
-					// если это верный ответ
-					$class = 'a ok2';
-				}elseif( $id_answer == $incorrect_answer ){
-					// если это неверный ответ
-					$class = 'a error2';
-				}else{
-					$class = 'a';
+				$class = 'a';
+				foreach ($correct_answer as $key => $value) {
+					// ответ
+					if( strtolower($answer) == strtolower($value) ){
+						// если это верный ответ
+						$class = 'a ok2';
+						break;
+					}
+				}
+				foreach ($incorrect_answer as $key => $value) {
+					// ответ
+					if( strtolower($answer) == strtolower($value) and strtolower($correct_answer[$key]) == strtolower($value)){
+						// если это верный ответ
+						$class = 'a ok2';
+						break;
+					}elseif (strtolower($answer) == strtolower($value) and strtolower($correct_answer[$key]) != strtolower($value)){
+						// если это неверный ответ
+						$class = 'a error2';
+					}
 				}
 				$print_res .= "<p class='$class'>$answer</p>";
 			}
@@ -132,6 +142,7 @@ if (isset($_POST['test'])) {
 	$test_all_data = get_test_data($test,$link);
 	// 1 - массив вопрос/ответы, 2 - правильные ответы, 3 - ответы пользователя
 	$test_all_data_result = get_test_data_result($test_all_data,$result,$resuser);
+	// print_r($test_all_data_result);
 	echo print_result($test_all_data_result);
 	die;
 }
