@@ -145,7 +145,11 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 	$print_res .= '<a href="/testirovanie" id="btn" class="btn red">Закончить</a>';
 	$print_res .= '</div>'; // class="questions"
 
-	$query = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`) VALUES('$test', '$id_user', '$percent')");
+	// Запись результата
+	$insert_result = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`) VALUES('$test', '$id_user', '$percent')");
+	$select_last_result = mysqli_query($link, "SELECT id FROM `results_test` ORDER BY id DESC LIMIT 1");
+	$id_last_result = mysqli_fetch_array($select_last_result);
+	$insert_result_info = mysqli_query($link, "INSERT INTO `view_quest_result` (`id_result`) VALUES('$id_last_result[id]')");
 
 	return $print_res;
 }
