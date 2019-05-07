@@ -35,13 +35,12 @@
 						<th style="font-size: 18px;"><b>Тест</b></th>
 						<th style="font-size: 18px;"><b>Результат</b></th>
 						<th></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<? while($result = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$result[fio]</td><td>$result[name]</td><td>$result[result] %</td><td><button class='glyphicon glyphicon-eye-open open-result' aria-hidden='true' data-id='$result[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-result' aria-hidden='true' data-id='$result[id]'></span></td></tr>";
+						echo "<tr><td>$i</td><td>$result[fio]</td><td>$result[name]</td><td>$result[result] %</td><td><span class='glyphicon glyphicon-remove remove-result' aria-hidden='true' data-id='$result[id]'></span></td></tr>";
 					} ?>
 				</tbody>
 			</table>

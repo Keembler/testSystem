@@ -23,7 +23,6 @@ else {
 }
 
 if (isset($_POST['login_form'])) {
-	
 
 	//заносим в отдельные переменные логин и пароль присланных с помощью post запроса
 	if (isset ($_POST['login'])) {$login = $_POST['login'];}
@@ -72,6 +71,9 @@ if (!isset($_SESSION['$logSESS'])) {
   header("location: auth/login.php");
   exit;  
 }
+//ПРОВЕРКА АВТОРИЗАЦИИ
+
+// ЗАПИСЬ ПЕРЕМЕННЫХ
 if (isset($_SESSION['$role'])) {
 	$role = $_SESSION['$role'];
 }
@@ -81,14 +83,17 @@ if (isset($_SESSION['$fio'])) {
 if (isset($_SESSION['$id_user'])) {
 	$id_user = $_SESSION['$id_user'];
 }
-//ПРОВЕРКА АВТОРИЗАЦИИ
+// ЗАПИСЬ ПЕРЕМЕННЫХ
 
+// ПОДКЛЮЧЕНИЕ КОНТРОЛЛЕРОВ
 include('controllers/users.php');
 include('controllers/tests.php');
 include('controllers/polls.php');
 include('controllers/questions.php');
+include('controllers/questions_polls.php');
 include('controllers/testirovanie.php');
 include('controllers/results_test.php');
+// ПОДКЛЮЧЕНИЕ КОНТРОЛЛЕРОВ
 
 if(isset($_GET['test']) and $_GET['test'] !== ''){
 	$test_id = (int)$_GET['test'];
@@ -106,6 +111,9 @@ else if ( file_exists('auth/'.$page.'.php') ) {
 }
 else if ( file_exists('testing/'.$page.'.php') ) { 
 	include('testing/'.$page.'.php');
+}
+else if ( file_exists('voting/'.$page.'.php') ) { 
+	include('voting/'.$page.'.php');
 }
 else if ($page === 'home' and $_SESSION['$root'] == 1 ) {
 	$page = 'adminka';

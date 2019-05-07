@@ -1,4 +1,4 @@
-$(function(){
+$(document).ready(function() {
 	$('form[name="form"]').on('submit', function(e){
 		e.preventDefault();
 		var $form = $(this);

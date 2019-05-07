@@ -67,26 +67,15 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 	$correct_answer_count = 0; // кол-во верных ответов
 	$incorrect_answer_count = 0; // кол-во неверных ответов
 	$percent = 0; // процент верных ответов
+	$counter = 0;
 
-	// подсчет результатов
-	foreach ($test_all_data_result as $item) {
-		if( isset($item['incorrect_answer'])) $incorrect_answer_count++;
-	}
-	$correct_answer_count = $all_count - $incorrect_answer_count;
-	$percent = round( ($correct_answer_count / $all_count * 100), 2);
-	
-	// вывод результатов
 	$print_res = '<div class="questions">';
-		$print_res .= '<div class="count-res">';
-			$print_res .= "<div class='all-count'>Всего вопросов: <b>{$all_count}</b></div>";
-			$print_res .= "<div class='correct-count'>Отвечено верно: <b>{$correct_answer_count}</b></div>";
-			$print_res .= "<div class='incorrect-count'>Отвечено неверно: <b>{$incorrect_answer_count}</b></div>";
-			$print_res .= "<div class='percent'>Процент верных ответов: <b>{$percent}</b></div>";
-		$print_res .= '</div>';
-
 	// вывод теста...
 	foreach ($test_all_data_result as $id_question => $item) { // получаем вопрос + ответы
 		$correct_answer = explode(",",$item['correct_answer']);
+		$counter_correct_user_answers = 0;
+		$several_correct_answer = count($correct_answer);
+		
 		
 		$incorrect_answer = null;
 		if( isset($item['incorrect_answer']) ){
@@ -95,9 +84,11 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 		}else{
 			$class = 'question-res ok';
 		}
+
 		$print_res .= "<div class='$class'>";
 		
-		foreach ($item as $id_answer => $answer) { // проходим по массиву ответов
+		foreach ($item as $id_answer => $answer) {
+			// проходим по массиву ответов
 			if( $id_answer === 0 ){
 				// вопрос
 				$print_res .= "<p class='q'><b>$answer</b></p><hr>";
@@ -118,11 +109,13 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 		              // print_r($correct_answer);
 		              if( $answer == $value and in_array($value, $correct_answer)){
 		                // если это верный ответ
-		                $class = 'a ok2';
+		                $class = 'a ok3';
+		                $counter_correct_user_answers++;
 		                break;
 		              }elseif ($answer == $value and !in_array($value, $correct_answer)){
 		                // если это неверный ответ
 		                $class = 'a error2';
+		                $counter_correct_user_answers = 0;
 		              }
 		            }
 		          }
@@ -137,19 +130,44 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 		            }
 		          }
 		        }
+		        if(count($correct_answer) > 1){
+			        if(isset($incorrect_answer)){
+		                $counter_correct_user_answers;
+			        }else{
+	                	$counter_correct_user_answers = 0;
+			        }
+			    }
 				$print_res .= "<p class='$class'>$answer</p>";
 			}
 		}
+		if(count($correct_answer) > 1){
+			$counter += $counter_correct_user_answers / $several_correct_answer;
+		}
 		$print_res .= "</div>"; // class='$class'
 	}
+
+	// подсчет результатов
+	foreach ($test_all_data_result as $item) {
+		if( isset($item['incorrect_answer'])){
+			$incorrect_answer_count++;
+		}
+	}
+	$incorrect_answer_count = $incorrect_answer_count - $counter;
+	$correct_answer_count = $all_count - $incorrect_answer_count;
+	$percent = round( ($correct_answer_count / $all_count * 100), 2);
+	
+	// вывод результатов
+		$print_res .= '<div class="count-res">';
+			$print_res .= "<div class='all-count'>Всего вопросов: <b>{$all_count}</b></div>";
+			$print_res .= "<div class='correct-count'>Отвечено верно: <b>{$correct_answer_count}</b></div>";
+			$print_res .= "<div class='incorrect-count'>Отвечено неверно: <b>{$incorrect_answer_count}</b></div>";
+			$print_res .= "<div class='percent'>Процент верных ответов: <b>{$percent}</b></div>";
+		$print_res .= '</div>';
 	$print_res .= '<a href="/testirovanie" id="btn" class="btn red">Закончить</a>';
 	$print_res .= '</div>'; // class="questions"
 
 	// Запись результата
 	$insert_result = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`) VALUES('$test', '$id_user', '$percent')");
-	$select_last_result = mysqli_query($link, "SELECT id FROM `results_test` ORDER BY id DESC LIMIT 1");
-	$id_last_result = mysqli_fetch_array($select_last_result);
-	$insert_result_info = mysqli_query($link, "INSERT INTO `view_quest_result` (`id_result`) VALUES('$id_last_result[id]')");
 
 	return $print_res;
 }

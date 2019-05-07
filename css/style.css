@@ -339,6 +339,9 @@ hr{
 .question-res .a.ok2{
 	color: green;
 }
+.question-res .a.ok3{
+	color: blue;
+}
 .question-res .a.error2{
 	text-decoration: line-through;
 	color: #ff0000;

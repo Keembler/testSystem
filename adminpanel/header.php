@@ -4,10 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Админ панель</title>
 	<!-- Latest compiled and minified CSS & JS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
+	<script src="../js/jquery.js"></script>
+	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/main.js"></script>
 </head>
 <body>
@@ -43,7 +43,7 @@
 								<li><a href="/polls">Опросы</a></li>
 								<li><a href="/questions-polls">Вопросы опросов</a></li>
 								<li><a href="/tests">Тесты</a></li>
-								<li><a href="/questions">Вопросы тестов</a></li>
+								<li><a href="/questions">Вопросы</a></li>
 								<li><a href="/users">Пользователи</a></li>
 								<li><a href="/results-polls">Результаты опросов</a></li>
 								<li><a href="/results-tests">Результаты тестирования</a></li>
