@@ -137,6 +137,13 @@ hr{
 	outline: none;
 	background: none;
 }
+.polls .glyphicon-eye-open {
+	cursor: pointer;
+	color: green;
+	border: none;
+	outline: none;
+	background: none;
+}
 .polls .glyphicon-plus {
 	cursor: pointer;
 	color: green;
@@ -213,7 +220,8 @@ hr{
 		width: calc(100% - 200px);
 		margin-left: 200px;
 	}
-	.content.testirovanie {
+	.content.testirovanie,
+	.content.polling {
 		width: calc(100% - 200px);
 		margin-left: 100px;
 	}
@@ -258,13 +266,15 @@ hr{
 	height: .25rem;
 	background-color: #e91e63;
 }
-.test-data .none {
+.test-data .none,
+.poll-data .none {
 	display: none;
 }
 .test-data .buttons{
 	margin-top: 30px;
 }
 .test-data .btn,
+.poll-data .btn,
 .testirovanie .questions .btn{
 	border-radius: 0;
 	text-transform: uppercase;
@@ -275,6 +285,7 @@ hr{
 	background: none;
 }
 .test-data .btn:before,
+.poll-data .btn:before,
 .testirovanie .questions .btn:before{
 	content: "";
 	width: 210%;
@@ -287,20 +298,24 @@ hr{
 	transition: all 0.4s ease 0s;
 }
 .test-data .btn:hover:before,
+.poll-data .btn:hover:before,
 .testirovanie .questions .btn:hover:before{
 	top: -20px;
 	left: -52px;
 }
 .test-data .btn.red,
+.poll-data .btn.red,
 .testirovanie .questions .btn.red{
 	border: 1px solid #ff3939;
 	color: #ff3939;
 }
 .test-data .btn.red:hover,
+.poll-data .btn.red:hover,
 .testirovanie .questions .btn.red:hover{
 	color: #fff;
 }
 .test-data .btn.red:hover:before,
+.poll-data .btn.red:hover:before,
 .testirovanie .questions .btn.red:hover:before{
 	background: #ff3939;
 }

@@ -10,9 +10,8 @@ include("moduls/db.php");
 session_start();
 
 if ($_SERVER['REQUEST_URI'] == '/') {
-	 $page = 'home';
-}
-else {
+	$page = 'home';
+}else {
 	$page = substr($_SERVER['REQUEST_URI'], 1);
 
 /*	if ( !preg_match('/^[A-z0-9\-]{3,25}$/',$page)) {
@@ -47,6 +46,7 @@ if (isset($_POST['login_form'])) {
 					$_SESSION['$root'] = $log_and_pass['root'];
 					//header("location: /adminka");
 					if($_SESSION['$root'] == 1)print_r('{"status": 200}');
+					//header("location: /testirovanie");
 					if($_SESSION['$root'] == 0)print_r('{"status": 201}');
 					exit;				
 		    }
@@ -67,9 +67,13 @@ if (isset($_POST['login_form'])) {
 
 
 //ПРОВЕРКА АВТОРИЗАЦИИ
-if (!isset($_SESSION['$logSESS'])) {
-  header("location: auth/login.php");
-  exit;  
+if($page != 'polling'){
+	if (!isset($_SESSION['$logSESS'])) {
+	  header("location: auth/login.php");
+	  exit;  
+	}
+}else{
+	$_SESSION['$logSESS'] = 'anonym';
 }
 //ПРОВЕРКА АВТОРИЗАЦИИ
 
@@ -92,13 +96,20 @@ include('controllers/polls.php');
 include('controllers/questions.php');
 include('controllers/questions_polls.php');
 include('controllers/testirovanie.php');
+include('controllers/polling.php');
 include('controllers/results_test.php');
 // ПОДКЛЮЧЕНИЕ КОНТРОЛЛЕРОВ
+
+if(isset($_GET['poll']) and $_GET['poll'] !== ''){
+	$poll_id = (int)$_GET['poll'];
+	$poll_data = get_poll_data($poll_id,$link);
+	include('voting/polling.php');
+	exit;
+}
 
 if(isset($_GET['test']) and $_GET['test'] !== ''){
 	$test_id = (int)$_GET['test'];
 	$test_data = get_test_data($test_id,$link);
-	/*echo "$test_data";*/
 	include('testing/testirovanie.php');
 	exit;
 }
