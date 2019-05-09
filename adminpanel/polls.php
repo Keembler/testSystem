@@ -55,10 +55,23 @@
 				<tbody>
 					<? while($poll = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$poll[name]</td><td>$poll[enable]</td><td><button class='glyphicon glyphicon-eye-open open-result-poll' aria-hidden='true' data-id='$poll[id]'></button></td><td><button class='glyphicon glyphicon-pencil edit-poll' aria-hidden='true' data-id='$poll[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-poll' aria-hidden='true' data-id='$poll[id]'></span></td></tr>";
+						echo "<tr><td>$i</td><td>$poll[name]</td><td>$poll[enable]</td><td><button class='glyphicon glyphicon-eye-open open-result-poll' aria-hidden='true' data-id='$poll[id]' data-name='$poll[name]'></button></td><td><button class='glyphicon glyphicon-pencil edit-poll' aria-hidden='true' data-id='$poll[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-poll' aria-hidden='true' data-id='$poll[id]'></span></td></tr>";
 					}?>
 				</tbody>
 			</table>
+		</div>
+		<div class="modal fade" id="poll_results">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Результаты отпроса</h4>
+					</div>
+					<div class="modal-body">
+						
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 	<script src="../js/polls.js"></script>

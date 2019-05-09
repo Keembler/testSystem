@@ -47,6 +47,23 @@ else if ($page === 'ed_poll' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
+else if ($page === 'result_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+	$pollID = $_POST['id'];
+
+	$query = mysqli_query($link, "SELECT `qp`.`question`, `ap`.`answer`, `ap`.`votes` FROM `questions_polls` as `qp`, `answers_polls` as `ap` WHERE `qp`.`id` = `ap`.`parent_question` and `qp`.`parent_poll` = $pollID");
+	
+	while($res_poll = mysqli_fetch_array($query)) {
+		$poll[] = json_decode('{"question":"'.$res_poll["question"].'","answer":"'.$res_poll["answer"].'","votes":"'.$res_poll["votes"].'"}');
+	}
+
+	if ($query) {
+		$resp = '{"status": 200, "text":"Опрос c ID = '.$pollID.' получен", "poll":'.json_encode($poll).'}';
+	}
+	else {
+		$resp = '{"status": 400, "text":"Ошибочка"}';
+	}
+	exit($resp);
+}
 else if ($page === 'save_poll' and $_SESSION['$root'] == 1) {
 	
 	$pollID = $_POST['id_poll'];

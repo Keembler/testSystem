@@ -98,7 +98,42 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
         });
 
     });
+    /**
+     * Функция получения информации о результатах опроса
+     */
+    $(document).on('click', '.open-result-poll', function(e){
+        e.preventDefault();
+        console.log("Получение результатов опроса");
+        var $id = parseInt($(e.target).attr('data-id')),
+            name_poll = $(e.target).attr('data-name');
 
+        $.ajax({
+            url: '/result_poll',
+            type: 'post',
+            data: 'id='+$id,
+            success: function(resp) {
+                // console.log("Пришёл ответ", resp);
+                var rsp = JSON.parse(resp);
+                console.log(rsp.poll);
+                if (rsp.status === 200) {
+                    var que = '', lines = '';
+                    rsp.poll.map(function(item){
+                        if (que !== '' && que == item.question) {
+                            lines += '<div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                        }
+                        else {
+                            que = item.question;
+                            lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div><div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                        }
+                    });
+                    $('#poll_results').find('.modal-title').text(name_poll);
+                    $('#poll_results').find('.modal-body').html(lines);
+                    $('#poll_results').modal('show');
+                }
+            }
+        });
+
+    });
     /**
      * Функция для очистки полей после закрытия модального окна
      */
