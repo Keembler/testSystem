@@ -361,3 +361,14 @@ hr{
 	text-decoration: line-through;
 	color: #ff0000;
 }
+
+#poll_results .votes {
+    background-color: #CCCCFF;
+}
+.modal-body:after {
+	content: '';
+	clear: both;
+	display: table;
+	height: 0;
+	font-size: 0;
+}

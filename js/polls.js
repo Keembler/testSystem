@@ -114,16 +114,34 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             success: function(resp) {
                 // console.log("Пришёл ответ", resp);
                 var rsp = JSON.parse(resp);
-                console.log(rsp.poll);
+                var polls = rsp.poll;
+                // console.log(polls);
                 if (rsp.status === 200) {
                     var que = '', lines = '';
-                    rsp.poll.map(function(item){
+                    polls.map(function(item){
                         if (que !== '' && que == item.question) {
-                            lines += '<div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                            // lines += '<div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                            item.data.map(function(item_data){
+                                lines += '<div style="width:460px;float:left;">'+item_data.answer;
+                                lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
+                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right;"><br>';
+                                if (item.sum_v==0) lines += '0 %</div>';
+                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</div>';
+                            });
                         }
                         else {
                             que = item.question;
-                            lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div><div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                            // lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div><div class="line-body">'+item.answer+' - '+item.votes+'</div>';
+                            lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div>';
+                            item.data.map(function(item_data){
+                                // console.log(non_json);
+                                lines += '<div style="width:460px;float:left;">'+item_data.answer;
+                                lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
+                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right;"><br>';
+                                if (item.sum_v==0) lines += '0 %</div>';
+                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</div>';
+                            });
+                            
                         }
                     });
                     $('#poll_results').find('.modal-title').text(name_poll);

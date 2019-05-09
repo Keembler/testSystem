@@ -50,14 +50,30 @@ else if ($page === 'ed_poll' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 else if ($page === 'result_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
 	$pollID = $_POST['id'];
 
-	$query = mysqli_query($link, "SELECT `qp`.`question`, `ap`.`answer`, `ap`.`votes` FROM `questions_polls` as `qp`, `answers_polls` as `ap` WHERE `qp`.`id` = `ap`.`parent_question` and `qp`.`parent_poll` = $pollID");
-	
-	while($res_poll = mysqli_fetch_array($query)) {
-		$poll[] = json_decode('{"question":"'.$res_poll["question"].'","answer":"'.$res_poll["answer"].'","votes":"'.$res_poll["votes"].'"}');
+		
+	$query2 = mysqli_query($link, "SELECT * FROM `questions_polls` WHERE `parent_poll` = $pollID");
+	$poll_str = [];
+	$first = 0;
+	while($res_poll = mysqli_fetch_array($query2)) {
+
+		$query = mysqli_query($link, "SELECT `ap`.`answer`, `ap`.`votes` FROM `answers_polls` as `ap` WHERE `ap`.`parent_question` = $res_poll[id]");
+
+		$sum = mysqli_fetch_array(mysqli_query($link, "SELECT max(`ap`.`votes`) AS `max_v`, sum(`ap`.`votes`) AS `sum_v` FROM `answers_polls` as `ap` WHERE `ap`.`parent_question` = $res_poll[id] LIMIT 1"));
+
+
+		$poll_arr = [];
+		while($res_poll_in = mysqli_fetch_array($query)) {
+			$poll_arr[] = json_decode('{"answer":"'.$res_poll_in["answer"].'", "votes":"'.$res_poll_in["votes"].'"}');
+		}
+		
+		$poll_str[] = json_decode('{"question":"'.$res_poll["question"].'", "data":'.json_encode($poll_arr).', "max_v":"'.$sum["max_v"].'", "sum_v": "'.$sum["sum_v"].'"}');
+		
 	}
+	
+	
 
 	if ($query) {
-		$resp = '{"status": 200, "text":"Опрос c ID = '.$pollID.' получен", "poll":'.json_encode($poll).'}';
+		$resp = '{"status": 200, "text":"Опрос c ID = '.$pollID.' получен", "poll":'.json_encode($poll_str).'}';
 	}
 	else {
 		$resp = '{"status": 400, "text":"Ошибочка"}';
