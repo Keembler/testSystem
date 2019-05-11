@@ -45,7 +45,6 @@
 								<li><a href="/tests">Тесты</a></li>
 								<li><a href="/questions">Вопросы</a></li>
 								<li><a href="/users">Пользователи</a></li>
-								<li><a href="/results-polls">Результаты опросов</a></li>
 								<li><a href="/results-tests">Результаты тестирования</a></li>
 							</ul>
 						</div><!-- /.navbar-collapse -->

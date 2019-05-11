@@ -24,6 +24,7 @@ function get_poll_data_result($poll_all_data,$result){
 function save_result($poll_all_data_result,$link){
 
 	$print_res = '<h1>Спасибо, Ваш голос учтен!</h1>';
+	$print_res .= '<div class="col-sm-6"><a href="../adminpanel/exit.php" id="btn" class="btn btn-lg red">Закончить опрос</a></div>';
 	$answer_id = '';
 
 	foreach ($poll_all_data_result as $q => $a) {

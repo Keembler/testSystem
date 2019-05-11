@@ -275,6 +275,7 @@ hr{
 }
 .test-data .btn,
 .poll-data .btn,
+.polling .btn,
 .testirovanie .questions .btn{
 	border-radius: 0;
 	text-transform: uppercase;
@@ -286,6 +287,7 @@ hr{
 }
 .test-data .btn:before,
 .poll-data .btn:before,
+.polling .btn:before,
 .testirovanie .questions .btn:before{
 	content: "";
 	width: 210%;
@@ -299,23 +301,27 @@ hr{
 }
 .test-data .btn:hover:before,
 .poll-data .btn:hover:before,
+.polling .btn:hover:before,
 .testirovanie .questions .btn:hover:before{
 	top: -20px;
 	left: -52px;
 }
 .test-data .btn.red,
 .poll-data .btn.red,
+.polling .btn.red,
 .testirovanie .questions .btn.red{
 	border: 1px solid #ff3939;
 	color: #ff3939;
 }
 .test-data .btn.red:hover,
 .poll-data .btn.red:hover,
+.polling .btn.red:hover,
 .testirovanie .questions .btn.red:hover{
 	color: #fff;
 }
 .test-data .btn.red:hover:before,
 .poll-data .btn.red:hover:before,
+.polling .btn.red:hover:before,
 .testirovanie .questions .btn.red:hover:before{
 	background: #ff3939;
 }
@@ -364,6 +370,12 @@ hr{
 
 #poll_results .votes {
     background-color: #CCCCFF;
+    text-align: center;
+    border: 1px solid #0033FF;
+    margin: 0 0 10px 0;
+}
+#poll_results .line-title {
+    float: left;
 }
 .modal-body:after {
 	content: '';

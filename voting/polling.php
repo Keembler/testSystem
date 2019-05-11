@@ -13,7 +13,7 @@ if (isset($poll_data) && $poll_data !== '') {
 			<?php foreach($item as $id_answer => $answer): // проходимся по массиву вопрос/ответы ?>
 				<?php if(!$id_answer): // выводим вопрос ?>
 					<div class="q header-h2"><span class="count-question"><? $i++; echo $i; ?></span><h2> <?=$answer?> </h2></div>
-				<?php elseif($id_answer !== 'type_answer'): // выводим варианты ответов ?>
+				<?php else: // выводим варианты ответов ?>
 					<p class="a" style="margin-left: 50px;">
 						<input type="radio" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$id_answer?>">
 						<label for="answer-<?=$id_answer?>"><?=$answer?></label>
@@ -27,7 +27,7 @@ if (isset($poll_data) && $poll_data !== '') {
 	<?php endforeach; // $poll_data ?>
 
 	<div class="buttons">
-		<div class="col-sm-3"><button type="button" id="btn" class="btn btn-lg red">Голосовать</button></div>
+		<div class="col-sm-6"><button type="button" id="btn" class="btn btn-lg red">Голосовать</button><a href="../adminpanel/exit.php" id="btn" class="btn btn-lg red" style="margin-left: 30px;">Закончить опрос</a></div>
 	</div>
 
 	</div> <!-- .test-data -->

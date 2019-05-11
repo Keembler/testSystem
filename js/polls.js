@@ -124,7 +124,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                             item.data.map(function(item_data){
                                 lines += '<div style="width:460px;float:left;">'+item_data.answer;
                                 lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
-                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right;"><br>';
+                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right; padding-right: 50px;"><br>';
                                 if (item.sum_v==0) lines += '0 %</div>';
                                 else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</div>';
                             });
@@ -137,9 +137,9 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                                 // console.log(non_json);
                                 lines += '<div style="width:460px;float:left;">'+item_data.answer;
                                 lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
-                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right;"><br>';
+                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right; padding-right: 50px;"><br><b>';
                                 if (item.sum_v==0) lines += '0 %</div>';
-                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</div>';
+                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</b></div>';
                             });
                             
                         }

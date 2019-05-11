@@ -12,6 +12,10 @@
 </head>
 <body>
 <style>
+body{
+	display: flex;
+	align-items: center;
+}
 input[type="button"]:not(.default), input[type="submit"]:not(.default) {
  -webkit-border-radius: 3px;
  -webkit-background-clip: padding-box;
