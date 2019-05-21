@@ -4,12 +4,13 @@
 **/
 function get_test_data($test_id,$link){
 	if(!$test_id) return false;
-	$query = mysqli_query($link, "SELECT q.question, q.parent_test, q.type_answer, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test_id AND tests.enable = '1'");
+	$query = mysqli_query($link, "SELECT q.question, q.parent_test, q.type_answer, q.image, a.id, a.answer, a.parent_question FROM questions q LEFT JOIN answers a ON q.id = a.parent_question LEFT JOIN tests ON tests.id = q.parent_test WHERE q.parent_test = $test_id AND tests.enable = '1'");
 	$data = null;
 	while ($row = mysqli_fetch_assoc($query)) {
 		$data[$row['parent_question']][0] = $row['question'];
 		$data[$row['parent_question']][$row['id']] = $row['answer'];
 		$data[$row['parent_question']]['type_answer'] = $row['type_answer'];
+		$data[$row['parent_question']]['image'] = $row['image'];
 	}
 	return $data;
 }
@@ -63,6 +64,8 @@ function get_test_data_result($test_all_data,$result,$resuser){
 }
 
 function print_result($test_all_data_result,$link,$test,$id_user){
+	$query_test_correct = mysqli_fetch_array(mysqli_query($link, "SELECT correct FROM tests WHERE id = $test"));
+
 	$all_count = count($test_all_data_result); // кол-во вопросов
 	$correct_answer_count = 0; // кол-во верных ответов
 	$incorrect_answer_count = 0; // кол-во неверных ответов
@@ -70,6 +73,7 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 	$counter = 0;
 
 	$print_res = '<div class="questions">';
+	if($query_test_correct['correct'] == 1){
 	// вывод теста...
 	foreach ($test_all_data_result as $id_question => $item) { // получаем вопрос + ответы
 		$correct_answer = explode(",",$item['correct_answer']);
@@ -145,6 +149,7 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 		}
 		$print_res .= "</div>"; // class='$class'
 	}
+	}
 
 	// подсчет результатов
 	foreach ($test_all_data_result as $item) {
@@ -163,7 +168,7 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 			$print_res .= "<div class='incorrect-count'>Отвечено неверно: <b>{$incorrect_answer_count}</b></div>";
 			$print_res .= "<div class='percent'>Процент верных ответов: <b>{$percent}</b></div>";
 		$print_res .= '</div>';
-	$print_res .= '<a href="/testirovanie" id="btn" class="btn red">Закончить</a>';
+	$print_res .= '<a href="/testirovanie" id="btn" class="btn red" style="margin-top: 15px;">Закончить</a>';
 	$print_res .= '</div>'; // class="questions"
 
 	// Запись результата
@@ -186,4 +191,10 @@ if (isset($_POST['test'])) {
 	// print_r($test_all_data_result);
 	echo print_result($test_all_data_result,$link,$test,$id_user);
 	die;
+}
+
+if(isset($_GET['time'])){
+	$query = mysqli_query($link, "SELECT * FROM tests WHERE id = $_GET[test_id] AND enable = '1'");
+	$row = mysqli_fetch_array($query);
+	echo $row['time'];
 }

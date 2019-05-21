@@ -1,19 +1,26 @@
 <?
 if ($page === 'add_test' and $_SESSION['$root'] == 1 and isset($_POST['name'])) {
 	$name = $_POST['name'];
+	$time = $_POST['time'];
 	if (isset($_POST['enable'])) {
 		$active = 1;
 	}
 	else {
 		$active = 0;
 	}
-
-	$query = mysqli_query($link, "INSERT INTO `tests` (`name`, `enable`) VALUES('$name','$active')");
-
-	$query = mysqli_query($link, "SELECT * FROM `tests` ORDER BY id DESC LIMIT 1");
+	if (isset($_POST['correct'])) {
+		$correct = 1;
+	}
+	else {
+		$correct = 0;
+	}
+	if($time <= 60 && $time >= 1){
+		$query = mysqli_query($link, "INSERT INTO `tests` (`name`, `time`, `enable`, `correct`) VALUES('$name', '$time', $active', '$correct')");
+	}
+	$query2 = mysqli_query($link, "SELECT * FROM `tests` ORDER BY id DESC LIMIT 1");
 	$test = json_encode(mysqli_fetch_array($query));
 
-	if ($query) {
+	if (isset($query) && $query2) {
 		$resp = '{"status": 200, "text":"Новый тест добавлен", "test":'.$test.'}';
 	}
 	else {
@@ -50,18 +57,27 @@ else if ($page === 'save_test' and $_SESSION['$root'] == 1) {
 	
 	$testID = $_POST['id_test'];
 	$name = $_POST['name'];
+	$time = $_POST['time'];
 	if (isset($_POST['enable'])) {
 		$active = 1;
 	}
 	else {
 		$active = 0;
 	}
-
-	if (isset($_POST['name']))  {
-		$query = mysqli_query($link, "UPDATE `tests` SET `name` = '$name', `enable` = '$active' WHERE `id` = $testID");
+	if (isset($_POST['correct'])) {
+		$correct = 1;
+	}
+	else {
+		$correct = 0;
 	}
 
-	if ($query) {
+	if (isset($_POST['name']))  {
+		if($time <= 60 && $time >= 1){
+			$query = mysqli_query($link, "UPDATE `tests` SET `name` = '$name', `time` = '$time', `enable` = '$active', `correct` = '$correct' WHERE `id` = $testID");
+		}
+	}
+
+	if (isset($query)) {
 		$resp = '{"status": 200, "text":"Новая информация сохранена успешно!"}';
 	}
 	else {

@@ -1,12 +1,27 @@
 <? include("header.php"); ?>
 	<? 
-	$query = mysqli_query($link, "SELECT questions.id, questions.question, tests.name FROM questions, tests  WHERE tests.id = questions.parent_test");
+	$query = mysqli_query($link, "SELECT questions.id, questions.question, tests.name, tests.id AS id_test FROM questions, tests  WHERE tests.id = questions.parent_test");
+	$filter = mysqli_query($link, "SELECT * FROM  tests");
 	$i = 0;
 	?>
 	<div class="questions">
 		<h1>Вопросы</h1>
 		<div class="row">
-			<button class="btn btn-primary" data-toggle="modal" href='#add_question'>Добавить</button>
+			<div class="col-sm-2">
+				<button class="btn btn-primary" data-toggle="modal" href='#add_question'>Добавить</button>
+			</div>
+			<div class="col-sm-4">
+				<select class="form-control filter" id="filter">
+					<option value="" selected>Все</option>
+				<?
+					while($item = mysqli_fetch_array($filter)){
+						?>
+						<option value="<? echo $item['id'] ?>"><? echo $item['name']; ?></option>
+						<?
+					}
+				?>	
+				</select>
+			</div>
 			<div class="modal fade" id="add_question">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
@@ -94,6 +109,10 @@
 												<input type="text" class="form-control" name="answer">
 											</div>
 										</div>
+										<div class="form-group">
+											<div class="title">Картинка</div>
+											<input id="image-question" type="file" name="myimage">
+										</div>
 										<button type="submit" class="btn btn-primary btn-add-question">Сохранить</button>
 									</form>
 								</div>
@@ -117,7 +136,7 @@
 				<tbody>
 					<? while($question = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$question[question]</td><td>$question[name]</td><td><button class='glyphicon glyphicon-pencil edit-question' aria-hidden='true' data-id='$question[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-question' aria-hidden='true' data-id='$question[id]'></span></td></tr>";
+						echo "<tr class='item' data-test-id ='$question[id_test]'><td>$i</td><td>$question[question]</td><td>$question[name]</td><td><button class='glyphicon glyphicon-pencil edit-question' aria-hidden='true' data-id='$question[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-question' aria-hidden='true' data-id='$question[id]'></span></td></tr>";
 					} ?>
 				</tbody>
 			</table>

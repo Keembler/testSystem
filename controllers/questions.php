@@ -5,11 +5,42 @@ if ($page === 'add_question' and $_SESSION['$root'] == 1 and isset($_POST['quest
 	$testID = $_POST['parent_test'];
 	$answers = json_decode($_POST['answers']);
 	$type_answer = $_POST['type_answer']; 
+	$upload_image='';
+	$folder='';
+	if($_FILES){
+		$pattern = "[^a-zа-яё0-9,~!@#%^-_\$\?\(\)\{\}\[\]\.]";
+		$upload_image=$_FILES["files"]["name"];
+        $upload_image = mb_eregi_replace($pattern, '-', $upload_image);
+        $upload_image = mb_ereg_replace('[-]+', '-', $upload_image);
+        
+        // Т.к. есть проблема с кириллицей в названиях файлов (файлы становятся недоступны).
+        // Сделаем их транслит:
+        $converter = array(
+            'а' => 'a',   'б' => 'b',   'в' => 'v',    'г' => 'g',   'д' => 'd',   'е' => 'e',
+            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',    'и' => 'i',   'й' => 'y',   'к' => 'k',
+            'л' => 'l',   'м' => 'm',   'н' => 'n',    'о' => 'o',   'п' => 'p',   'р' => 'r',
+            'с' => 's',   'т' => 't',   'у' => 'u',    'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',  'ь' => '',    'ы' => 'y',   'ъ' => '',
+            'э' => 'e',   'ю' => 'yu',  'я' => 'ya', 
+        
+            'А' => 'A',   'Б' => 'B',   'В' => 'V',    'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',    'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+            'Л' => 'L',   'М' => 'M',   'Н' => 'N',    'О' => 'O',   'П' => 'P',   'Р' => 'R',
+            'С' => 'S',   'Т' => 'T',   'У' => 'U',    'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',  'Ь' => '',    'Ы' => 'Y',   'Ъ' => '',
+            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+        );
+
+        $upload_image = strtr($upload_image, $converter);
+		
+		$folder="./images/";
+		move_uploaded_file($_FILES["files"]["tmp_name"],"$folder".$upload_image);
+	}
 
 	/**
 	 * Записываем новый вопрос в базу данных
 	 */
-	$query = mysqli_query($link, "INSERT INTO `questions` (`question`, `parent_test`, `type_answer`) VALUES('$name','$testID', '$type_answer')");
+	$query = mysqli_query($link, "INSERT INTO `questions` (`question`, `parent_test`, `type_answer`, `image`) VALUES('$name','$testID', '$type_answer', '$folder$upload_image')");
 
 	/**
 	 * Получаем ID последнего вопроса из базы
@@ -89,9 +120,40 @@ else if ($page === 'save_question' and $_SESSION['$root'] == 1) {
 	$type_answer = $_POST['type_answer'];
 	$test = $_POST['parent_test'];
 	$answers = json_decode($_POST['answers']);
+	$upload_image='';
+	$folder='';
+	if($_FILES){
+		$pattern = "[^a-zа-яё0-9,~!@#%^-_\$\?\(\)\{\}\[\]\.]";
+		$upload_image=$_FILES["files"]["name"];
+        $upload_image = mb_eregi_replace($pattern, '-', $upload_image);
+        $upload_image = mb_ereg_replace('[-]+', '-', $upload_image);
+        
+        // Т.к. есть проблема с кириллицей в названиях файлов (файлы становятся недоступны).
+        // Сделаем их транслит:
+        $converter = array(
+            'а' => 'a',   'б' => 'b',   'в' => 'v',    'г' => 'g',   'д' => 'd',   'е' => 'e',
+            'ё' => 'e',   'ж' => 'zh',  'з' => 'z',    'и' => 'i',   'й' => 'y',   'к' => 'k',
+            'л' => 'l',   'м' => 'm',   'н' => 'n',    'о' => 'o',   'п' => 'p',   'р' => 'r',
+            'с' => 's',   'т' => 't',   'у' => 'u',    'ф' => 'f',   'х' => 'h',   'ц' => 'c',
+            'ч' => 'ch',  'ш' => 'sh',  'щ' => 'sch',  'ь' => '',    'ы' => 'y',   'ъ' => '',
+            'э' => 'e',   'ю' => 'yu',  'я' => 'ya', 
+        
+            'А' => 'A',   'Б' => 'B',   'В' => 'V',    'Г' => 'G',   'Д' => 'D',   'Е' => 'E',
+            'Ё' => 'E',   'Ж' => 'Zh',  'З' => 'Z',    'И' => 'I',   'Й' => 'Y',   'К' => 'K',
+            'Л' => 'L',   'М' => 'M',   'Н' => 'N',    'О' => 'O',   'П' => 'P',   'Р' => 'R',
+            'С' => 'S',   'Т' => 'T',   'У' => 'U',    'Ф' => 'F',   'Х' => 'H',   'Ц' => 'C',
+            'Ч' => 'Ch',  'Ш' => 'Sh',  'Щ' => 'Sch',  'Ь' => '',    'Ы' => 'Y',   'Ъ' => '',
+            'Э' => 'E',   'Ю' => 'Yu',  'Я' => 'Ya',
+        );
+
+        $upload_image = strtr($upload_image, $converter);
+		
+		$folder="./images/";
+		move_uploaded_file($_FILES["files"]["tmp_name"],"$folder".$upload_image);
+	}
 
 	if (isset($_POST['question']))  {
-		$query = mysqli_query($link, "UPDATE `questions` SET `question` = '$name', `parent_test` = '$test', `type_answer` = '$type_answer' WHERE `id` = $questionID");
+		$query = mysqli_query($link, "UPDATE `questions` SET `question` = '$name', `parent_test` = '$test', `type_answer` = '$type_answer', `image` = '$folder$upload_image' WHERE `id` = $questionID");
 	}
 
 	if (isset($_POST['answers']))  {

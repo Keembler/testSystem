@@ -12,10 +12,12 @@ if (isset($test_data) && $test_data !== '') {
 		<div class="question" data-id="<?=$id_question?>" id="question-<?=$id_question?>">
 			<?php foreach($item as $id_answer => $answer): // проходимся по массиву вопрос/ответы ?>
 				<?php if(!$id_answer): // выводим вопрос ?>
-					<div class="q header-h2"><span class="count-question"><? $i++; echo $i; ?></span><h2> <?=$answer?> </h2></div>
-				<?php elseif($id_answer !== 'type_answer'): // выводим варианты ответов ?>
+					<div class="q header-h2"><span class="count-question"><? $i++; echo $i; ?></span><h2> <?=$answer?> </h2></div><div style="display: flex;">
+						<img src="<? echo $item['image']; ?>" alt="" style="max-width: 150px; height: auto;">
+						<div>
+				<?php elseif($id_answer !== 'type_answer' && $id_answer != 'image'): // выводим варианты ответов ?>
 					<? if($item['type_answer'] == 'radio'): ?>
-					<p class="a" style="margin-left: 50px;">
+					<p class="a" style="margin-left: 20px;">
 						<input type="radio" id="answer-<?=$id_answer?>" name="question-<?=$id_question?>" value="<?=$answer?>">
 						<label for="answer-<?=$id_answer?>"><?=$answer?></label>
 					</p>
@@ -31,9 +33,10 @@ if (isset($test_data) && $test_data !== '') {
 					<? endif; ?>
 
 				<?php endif; // $id_answer ?>
-
+			
 			<?php endforeach; // $item ?>
-
+			</div>
+			</div>
 		</div> <!-- .question -->
 
 	<?php endforeach; // $test_data ?>

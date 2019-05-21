@@ -21,10 +21,11 @@ $(document).ready(function() {
 			data: res,
 			success: function(resp){
 				$('.content').html(resp);
+				$('#block-timer').hide();
 			},
 			error: function(){
 				alert('Ошибка');
 			}
 		});
-	})
+	});
 })

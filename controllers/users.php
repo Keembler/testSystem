@@ -66,10 +66,10 @@ else if ($page === 'save_user' and $_SESSION['$root'] == 1) {
 	}
 
 	if (isset($_POST['pass']) and $_POST['pass'] !== '')  {
-		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `password` = '$pass', `role` = '$newRole', `root` = '$newRoot' WHERE `id` = $userID");
+		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `password` = '$pass', `role` = '$newRole', `root` = '$newRoot'WHERE `id` = $userID");
 	}
 	else {
-		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `role` = '$newRole', `root` = '$newRoot' WHERE `id` = $userID");
+		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `role` = '$newRole', `root` = '$newRoot'WHERE `id` = $userID");
 	}
 
 	if ($query) {

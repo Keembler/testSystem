@@ -126,16 +126,23 @@ hr{
 	cursor: pointer;
 	color: green;
 }
+.questions .form-control.filter{
+	width: 300px;
+}
 .polls .glyphicon-remove {
 	cursor: pointer;
 	color: red;
 }
-.polls .glyphicon-pencil {
+.polls .glyphicon-pencil,
+.polls .glyphicon-print {
 	cursor: pointer;
 	color: black;
 	border: none;
 	outline: none;
 	background: none;
+}
+.polls .glyphicon-print{
+	margin: 0 0 10px 15px;
 }
 .polls .glyphicon-eye-open {
 	cursor: pointer;
@@ -336,6 +343,22 @@ hr{
 	width: 20px;
 	text-align: center;
 }
+.testing .timer{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	justify-content: flex-end;
+}
+.testing .timer.sticky {
+    position: fixed;
+    top: 0;
+    z-index: 9999;
+}
+.digits .cntSeparator{
+	font-size: 50px;
+}
 .testirovanie .questions{
 	border: 10px solid #eee;
 	box-sizing: border-box;
@@ -373,9 +396,6 @@ hr{
     text-align: center;
     border: 1px solid #0033FF;
     margin: 0 0 10px 0;
-}
-#poll_results .line-title {
-    float: left;
 }
 .modal-body:after {
 	content: '';

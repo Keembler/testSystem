@@ -1,10 +1,28 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
 
+    var filter_select_el = document.getElementById('filter');
+    var items_el = document.querySelector('.list_questions tbody');
+
+    filter_select_el.onchange = function() {
+        if(this.value == ''){
+            $('tr.item').css('display', 'table-row');
+            return;
+        }
+      var items = items_el.getElementsByClassName('item');
+      for (var i=0; i<items.length; i++) {
+        if (parseInt($(items[i]).attr('data-test-id')) == parseInt(this.value) ) {
+            items[i].style.display = 'table-row';
+        } else {
+            items[i].style.display = 'none';
+        }
+      }
+    };
     
     function clearInput () {
         $('#add_question').find('input[type="text"],input[type="hidden"]').val("");
         $('#add_question').find('input[type="checkbox"]').prop('checked',false);
         $('#add_question').find('input[id="radio"]').prop('checked',false);
+        $('#add_question').find("#image-question").val("");
     }
     function changeTypeAnswer () {
         if($('input#type_radio').prop("checked")){
@@ -67,8 +85,6 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
 
         var ANSWERS = [];
 
-        console.log("Добавляем новый вопрос");
-
         var $form = $(e.target).parent('form'),
             formData, $url;
 
@@ -96,24 +112,33 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                 ANSWERS.push(answer);
             }
         });
-        console.log("ANSWERS", ANSWERS);
-        
-        formData = 'parent_test='+testID+'&type_answer='+type_answer+'&id_question='+questionID+'&question='+question+'&answers='+JSON.stringify(ANSWERS);
+        // создадим объект данных формы
+        var data = new FormData(),
+            files = document.getElementById('image-question').files[0];
+
+        data.append('files', files );
+        data.append('parent_test',testID);
+        data.append('type_answer',type_answer);
+        data.append('id_question',questionID);
+        data.append('question',question);
+        data.append('answers',JSON.stringify(ANSWERS));
 
         if ($form.find('#edited').val() !== '') {
             $url = '/save_question';
-            console.log("Сохранаяем новую информацию");
         }
         else {
             $url = '/add_question';
-            console.log("Добавляем новый вопрос");
         }
         $.ajax({
             url: $url,
             type: 'post',
-            data: formData,
+            data: data,     
+            // отключаем обработку передаваемых данных, пусть передаются как есть
+            processData: false,
+            // отключаем установку заголовка типа запроса. Так jQuery скажет серверу что это строковой запрос
+            contentType: false, 
             success: function(resp) {
-                console.log("Пришёл ответ", resp);
+                console.log(resp);
                 var rsp = JSON.parse(resp);
                 if (rsp.status === 200) {
                     $form.closest('.modal-body').find('.status-text').addClass('text-success').find('b').text(rsp.text);
@@ -171,7 +196,6 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
      */
     $(document).on('click', '.glyphicon-pencil', function(e){
         e.preventDefault();
-        console.log("Редактирование вопроса");
         var $id = parseInt($(e.target).attr('data-id'));
 
         $.ajax({
@@ -179,7 +203,6 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             type: 'post',
             data: 'id='+$id,
             success: function(resp) {
-                console.log("Пришёл ответ", resp);
                 var rsp = JSON.parse(resp);
                 console.log(rsp);
                 if (rsp.status === 200) {

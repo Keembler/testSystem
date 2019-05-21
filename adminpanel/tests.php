@@ -25,10 +25,20 @@
 											<label for="test-name">Название теста</label>
 											<input type="text" class="form-control" id="name" name="name" placeholder="Название">
 										</div>
+										<div class="form-group">
+											<label for="test-time">Время на выполнение теста(указывать в минутах)</label>
+											<input type="text" class="form-control" id="time" name="time" placeholder="Время на выполнение теста">
+										</div>
 										<div class="checkbox">
 											<label>
 												<input type="checkbox" name="enable" id="enable" value="1">
 												Активен
+											</label>
+										</div>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" name="correct" id="correct" value="1">
+												Показывать ответы
 											</label>
 										</div>
 										<button type="submit" class="btn btn-primary btn-add-test">Сохранить</button>
@@ -46,7 +56,9 @@
 					<tr>
 						<th style="font-size: 18px;"><b>№</b></th>
 						<th style="font-size: 18px;"><b>Название</b></th>
+						<th style="font-size: 18px;"><b>Время на выполнение</b></th>
 						<th style="font-size: 18px;"><b>Активен</b></th>
+						<th style="font-size: 18px;"><b>Показывать ответы</b></th>
 						<th></th>
 						<th></th>
 					</tr>
@@ -54,7 +66,17 @@
 				<tbody>
 					<? while($test = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr><td>$i</td><td>$test[name]</td><td>$test[enable]</td><td><button class='glyphicon glyphicon-pencil edit-test' aria-hidden='true' data-id='$test[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-test' aria-hidden='true' data-id='$test[id]'></span></td></tr>";
+						if($test['enable'] == 1){
+							$enable = 'Да';
+						}else{
+							$enable = 'Нет';
+						}
+						if($test['correct'] == 1){
+							$correct = 'Да';
+						}else{
+							$correct = 'Нет';
+						}
+						echo "<tr><td>$i</td><td>$test[name]</td><td>$test[time] мин.</td><td>$enable</td><td>$correct</td><td><button class='glyphicon glyphicon-pencil edit-test' aria-hidden='true' data-id='$test[id]'></button></td><td><span class='glyphicon glyphicon-remove remove-test' aria-hidden='true' data-id='$test[id]'></span></td></tr>";
 					}?>
 				</tbody>
 			</table>

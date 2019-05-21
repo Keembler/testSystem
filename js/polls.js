@@ -122,30 +122,47 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                         if (que !== '' && que == item.question) {
                             // lines += '<div class="line-body">'+item.answer+' - '+item.votes+'</div>';
                             item.data.map(function(item_data){
-                                lines += '<div style="width:460px;float:left;">'+item_data.answer;
+                                lines += '<tr>';
+                                lines += '<td>';
+                                lines += '<div style="width:460px;">'+item_data.answer;
                                 lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
-                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right; padding-right: 50px;"><br>';
+                                lines += 'px;">'+item_data.votes+'</div></div>';
+                                lines += '</td>';
+                                lines += '<td>';
+                                lines += '<div style="padding: 8px 0 0 20px;"><b>';
                                 if (item.sum_v==0) lines += '0 %</div>';
-                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</div>';
+                                else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</b></div>';
+                                lines += '</td>';
+                                lines += '</tr>';
                             });
                         }
                         else {
                             que = item.question;
+                            lines += '<tr>';
+                            lines += '<th colspan="2">';
                             // lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div><div class="line-body">'+item.answer+' - '+item.votes+'</div>';
                             lines += '<div class="line-title" style="font-weight: 700;">'+item.question+'</div>';
+                            lines += '</th >';
                             item.data.map(function(item_data){
                                 // console.log(non_json);
-                                lines += '<div style="width:460px;float:left;">'+item_data.answer;
+                                lines += '<tr>';
+                                lines += '<td>';
+                                lines += '<div style="width:460px;">'+item_data.answer;
                                 lines += '<div class="votes" style="width:'+(item_data.votes/item.max_v*460);
-                                lines += 'px;">'+item_data.votes+'</div></div><div style="float:right; padding-right: 50px;"><br><b>';
+                                lines += 'px;">'+item_data.votes+'</div></div>';
+                                lines += '</td>';
+                                lines += '<td>';
+                                lines += '<div style="padding: 8px 0 0 20px;"><b>';
                                 if (item.sum_v==0) lines += '0 %</div>';
                                 else lines += Math.round(100*item_data.votes/item.sum_v,2)+' %</b></div>';
+                                lines += '</td>';
+                                lines += '</tr>';
                             });
                             
                         }
                     });
                     $('#poll_results').find('.modal-title').text(name_poll);
-                    $('#poll_results').find('.modal-body').html(lines);
+                    $('#poll_results').find('.table-res-poll tbody').html(lines);
                     $('#poll_results').modal('show');
                 }
             }
@@ -160,5 +177,31 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
         $('#add_poll').find('input[type="checkbox"]').prop('checked',false);
         $('.status-text').removeClass('text-success').removeClass('text-danger').hide();
     })
+
+    $('#btnPrint').on('click', function () {
+        var printContents = new $("#poll_results .modal-body").clone();           
+        var myWindow = window.open("", "popup", "width=600,height=600,scrollbars=yes,resizable=yes," +
+            "toolbar=no,directories=no,location=no,menubar=no,status=no,left=0,top=0");
+        var doc = myWindow.document;
+        doc.open();
+        $(printContents).find("#poll_results .modal-body").remove();
+        doc.write("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
+        doc.write("<html>");
+        doc.write("<head>"); 
+        doc.write("</head>");
+        doc.write("<body>");
+        doc.write("<style>");
+        doc.write(".votes {background-color: #CCCCFF;text-align: center;border: 1px solid #0033FF;margin: 0 0 10px 0;}.line-title {float: left;}");
+        doc.write("</style>");
+        doc.write($(printContents).html());
+        doc.write("<script>");
+        doc.write("window.print();");
+        doc.write("</script>");
+        doc.write("</body>");
+        doc.write("</html>");
+        doc.document.close();
+        doc.focus();
+        doc.close();
+    });
 
 });

@@ -2,17 +2,14 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
     
     $(document).on('click', '.btn-add-test', function(e){
         e.preventDefault();
-        console.log("Добавляем новый тест");
         var $form = $(e.target).parent('form'),
             formData = $form.serialize(), $url;
 
         if ($form.find('#edited').val() !== '') {
             $url = '/save_test';
-            console.log("Сохранаяем новую информацию");
         }
         else {
             $url = '/add_test';
-            console.log("Добавляем новый тест");
         }
         $.ajax({
             url: $url,
@@ -22,7 +19,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                 console.log("Пришёл ответ", resp);
                 var rsp = JSON.parse(resp);
                 if (rsp.status === 200) {
-                    $form.closest('.modal-body').find('.status-text').addClass('text-success').find('b').text(rsp.text);
+                    $form.closest('.modal-body').find('.status-text').removeClass('text-danger').addClass('text-success').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
                     if ($form.find('#edited').val() === '') {
                         var test = rsp.test;
@@ -30,7 +27,9 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                         var newTR = `<tr>
                                         <td>${count}</td>
                                         <td>${test.name}</td>
+                                        <td>${test.time}</td>
                                         <td>${test.enable}</td>
+                                        <td>${test.correct}</td>
                                         <td>
                                             <button class='glyphicon glyphicon-pencil edit-test' aria-hidden='true' data-id='${test.id}'></button>
                                         </td>
@@ -42,7 +41,7 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                     }
                 }
                 else {
-                    $form.closest('.modal-body').find('.status-text').addClass('text-danger').find('b').text(rsp.text);
+                    $form.closest('.modal-body').find('.status-text').removeClass('text-success').addClass('text-danger').find('b').text(rsp.text);
                     $form.closest('.modal-body').find('.status-text').show(200);
                 }
             }
@@ -75,7 +74,6 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
      */
     $(document).on('click', '.glyphicon-pencil', function(e){
         e.preventDefault();
-        console.log("Редактирование теста");
         var $id = parseInt($(e.target).attr('data-id'));
 
         $.ajax({
@@ -83,16 +81,18 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
             type: 'post',
             data: 'id='+$id,
             success: function(resp) {
-                console.log("Пришёл ответ", resp);
                 var rsp = JSON.parse(resp);
                 if (rsp.status === 200) {
                     var $test = rsp.test;
                     $('#add_test').find('#id_test').val($test.id);
                     $('#add_test').find('#edited').val(1);
                     $('#add_test').find('#name').val($test.name);
-                    console.log(parseInt($test.root));
+                    $('#add_test').find('#time').val($test.time);
                     if (parseInt($test.enable) === 1) {
                         $('#add_test').find('#enable').prop('checked',true);
+                    }
+                    if (parseInt($test.correct) === 1) {
+                        $('#add_test').find('#correct').prop('checked',true);
                     }
                     $('#add_test').modal('show');
                 }

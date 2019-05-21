@@ -68,8 +68,13 @@
 						<h4 class="modal-title">Результаты отпроса</h4>
 					</div>
 					<div class="modal-body">
-						
+						<table class="table-res-poll">
+							<tbody>
+								
+							</tbody>
+						</table>
 					</div>
+					<button id="btnPrint" class="glyphicon glyphicon-print"></button>
 				</div>
 			</div>
 		</div>

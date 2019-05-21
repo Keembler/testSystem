@@ -1,5 +1,23 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
 
+    var filter_select_el = document.getElementById('filter');
+    var items_el = document.querySelector('.list_questions tbody');
+
+    filter_select_el.onchange = function() {
+        if(this.value == ''){
+            $('tr.item').css('display', 'table-row');
+            return;
+        }
+      var items = items_el.getElementsByClassName('item');
+      for (var i=0; i<items.length; i++) {
+        if (parseInt($(items[i]).attr('data-poll-id')) == parseInt(this.value) ) {
+            items[i].style.display = 'table-row';
+        } else {
+            items[i].style.display = 'none';
+        }
+      }
+    };
+
     function clearInput () {
         $('#add_question_poll').find('input[type="text"],input[type="hidden"]').val("");
     }
