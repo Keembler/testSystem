@@ -160,19 +160,33 @@ function print_result($test_all_data_result,$link,$test,$id_user){
 	$incorrect_answer_count = $incorrect_answer_count - $counter;
 	$correct_answer_count = $all_count - $incorrect_answer_count;
 	$percent = round( ($correct_answer_count / $all_count * 100), 2);
+	$ocenka = 2;
+	if ($percent >= 50 && $percent < 73) {
+		$ocenka = 3;
+	}elseif($percent >= 73 && $percent < 85){
+		$ocenka = 4;
+	}elseif($percent >= 86 && $percent <= 100){
+		$ocenka = 5;
+	}
 	
 	// вывод результатов
 		$print_res .= '<div class="count-res">';
 			$print_res .= "<div class='all-count'>Всего вопросов: <b>{$all_count}</b></div>";
 			$print_res .= "<div class='correct-count'>Отвечено верно: <b>{$correct_answer_count}</b></div>";
 			$print_res .= "<div class='incorrect-count'>Отвечено неверно: <b>{$incorrect_answer_count}</b></div>";
-			$print_res .= "<div class='percent'>Процент верных ответов: <b>{$percent}</b></div>";
+			$print_res .= "<div class='info'><h4>Оценка за тест выставляется в соответствии с количеством правильных ответов. Если Вы набрали:</h4>";
+			$print_res .= "<p>- меннее 50% - тестирование не пройдено (неуд)</p>";
+			$print_res .= "<p>- от 50% до 72% - оценка 3</p>";
+			$print_res .= "<p>- от 73% до 85% - оценка 4</p>";
+			$print_res .= "<p>- от 86% до 100% - оценка 5</p>";
+			$print_res .= "<h4>Ваша оценка по данному тесту <b>{$ocenka}</b>(<b>{$percent}</b>)</h4>";
+			$print_res .= "</div>"; // class="info"
 		$print_res .= '</div>';
 	$print_res .= '<a href="/testirovanie" id="btn" class="btn red" style="margin-top: 15px;">Закончить</a>';
 	$print_res .= '</div>'; // class="questions"
 
 	// Запись результата
-	$insert_result = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`) VALUES('$test', '$id_user', '$percent')");
+	$insert_result = mysqli_query($link, "INSERT INTO `results_test` (`id_test`, `id_user`, `result`, `ocenka`) VALUES('$test', '$id_user', '$percent', ' $ocenka')");
 
 	return $print_res;
 }

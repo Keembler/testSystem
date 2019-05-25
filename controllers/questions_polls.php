@@ -1,5 +1,5 @@
 <?
-if ($page === 'add_question_poll' and $_SESSION['$root'] == 1 and isset($_POST['question']) and isset($_POST['answers'])) {
+if ($page === 'add_question_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['question']) and isset($_POST['answers'])) {
 
 	$name = $_POST['question'];
 	$pollID = $_POST['parent_poll'];
@@ -49,7 +49,7 @@ if ($page === 'add_question_poll' and $_SESSION['$root'] == 1 and isset($_POST['
 	}
 	exit($resp);
 }
-else if ($page === 'rm_question_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'rm_question_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$questionID = $_POST['id'];
 	$query = mysqli_query($link, "DELETE FROM `questions_polls` WHERE `id` = $questionID");
 
@@ -61,7 +61,7 @@ else if ($page === 'rm_question_poll' and $_SESSION['$root'] == 1 and isset($_PO
 	}
 	exit($resp);
 }
-else if ($page === 'ed_question_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'ed_question_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$questionID = $_POST['id'];
 	$answers = [];
 	$query = mysqli_query($link, "SELECT * FROM `questions_polls` WHERE `id` = $questionID");
@@ -81,7 +81,7 @@ else if ($page === 'ed_question_poll' and $_SESSION['$root'] == 1 and isset($_PO
 	}
 	exit($resp);
 }
-else if ($page === 'save_question_poll' and $_SESSION['$root'] == 1) {
+else if ($page === 'save_question_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель')) {
 	
 	$questionID = $_POST['id_question'];
 	$name = $_POST['question'];

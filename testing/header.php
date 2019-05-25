@@ -51,7 +51,7 @@
 			<div class="row testirovanie-header">
 				<? if($role != 'Студент'){ ?>
 				<div class="col-md-4 left">
-					<a href="/adminka" target="_blank" class="site-name">Перейти в панель администратора</a>
+					<a href="/main" target="_blank" class="site-name">Перейти в панель администратора</a>
 				</div>
 				<? } ?>
 				<div class="col-md-5 col-md-offset-3 right text-right">

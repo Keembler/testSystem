@@ -39,12 +39,14 @@
 						<!-- Collect the nav links, forms, and other content for toggling -->
 						<div class="collapse navbar-collapse navbar-ex1-collapse">
 							<ul class="nav">
-								<li><a href="/adminka">Главная</a></li>
+								<li><a href="/main">Главная</a></li>
 								<li><a href="/polls">Опросы</a></li>
 								<li><a href="/questions-polls">Вопросы опросов</a></li>
 								<li><a href="/tests">Тесты</a></li>
-								<li><a href="/questions">Вопросы</a></li>
+								<li><a href="/questions">Вопросы тестов</a></li>
+								<? if($role == 'Администратор'){ ?>
 								<li><a href="/users">Пользователи</a></li>
+								<? } ?>
 								<li><a href="/results-tests">Результаты тестирования</a></li>
 							</ul>
 						</div><!-- /.navbar-collapse -->

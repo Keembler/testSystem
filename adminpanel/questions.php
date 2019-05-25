@@ -5,7 +5,7 @@
 	$i = 0;
 	?>
 	<div class="questions">
-		<h1>Вопросы</h1>
+		<h1>Вопросы тестов</h1>
 		<div class="row">
 			<div class="col-sm-2">
 				<button class="btn btn-primary" data-toggle="modal" href='#add_question'>Добавить</button>

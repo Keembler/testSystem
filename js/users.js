@@ -1,4 +1,13 @@
 $(document).ready(function() { // зaпускaем скрипт пoсле зaгрузки всех элементoв
+
+        $("#search").keyup(function() {
+            var value = this.value;
+            $("table.list_users").find("tr").each(function(index) {
+                if (index === 0) return;
+                var id = $(this).find("td").first().next().text();
+                $(this).toggle(id.indexOf(value) !== -1);
+            });
+        });
     
     /**
      * Функция для Добавления нового пользователя
@@ -95,10 +104,6 @@ $(document).ready(function() { // зaпускaем скрипт пoсле зaг�
                     $('#add_user').find('#fio').val($user.fio);
                     $('#add_user').find('#login').val($user.login);
                     $('#add_user').find('#role').val($user.role);
-                    console.log(parseInt($user.root));
-                    if (parseInt($user.root) === 1) {
-                        $('#add_user').find('#root').prop('checked',true);
-                    }
                     $('#add_user').modal('show');
                 }
             }

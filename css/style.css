@@ -126,9 +126,6 @@ hr{
 	cursor: pointer;
 	color: green;
 }
-.questions .form-control.filter{
-	width: 300px;
-}
 .polls .glyphicon-remove {
 	cursor: pointer;
 	color: red;
@@ -166,6 +163,9 @@ hr{
 	border: none;
 	outline: none;
 	background: none;
+}
+.questions .col-sm-2 .btn.btn-primary{
+	width: 100%;
 }
 .questions .modal-dialog{
 	width: 500px;

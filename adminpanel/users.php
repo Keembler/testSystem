@@ -6,7 +6,12 @@
 	<div class="users">
 		<h1>Пользователи</h1>
 		<div class="row">
-			<button class="btn btn-primary" data-toggle="modal" href='#add_user'>Добавить</button>
+			<div class="col-sm-2">
+				<button class="btn btn-primary" data-toggle="modal" href='#add_user'>Добавить</button>
+			</div>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" id="search" placeholder="Поиск по логину">
+			</div>
 			<div class="modal fade" id="add_user">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">

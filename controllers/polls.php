@@ -1,5 +1,5 @@
 <?
-if ($page === 'add_poll' and $_SESSION['$root'] == 1 and isset($_POST['name'])) {
+if ($page === 'add_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['name'])) {
 	$name = $_POST['name'];
 	if (isset($_POST['enable'])) {
 		$active = 1;
@@ -22,7 +22,7 @@ if ($page === 'add_poll' and $_SESSION['$root'] == 1 and isset($_POST['name'])) 
 	}
 	exit($resp);
 }
-else if ($page === 'rm_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'rm_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$pollID = $_POST['id'];
 	$query = mysqli_query($link, "DELETE FROM `polls` WHERE `id` = $pollID");
 
@@ -34,7 +34,7 @@ else if ($page === 'rm_poll' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'ed_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'ed_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$pollID = $_POST['id'];
 
 	$query = mysqli_query($link, "SELECT * FROM `polls` WHERE `id` = $pollID");
@@ -47,7 +47,7 @@ else if ($page === 'ed_poll' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'result_poll' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'result_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$pollID = $_POST['id'];
 
 		
@@ -80,7 +80,7 @@ else if ($page === 'result_poll' and $_SESSION['$root'] == 1 and isset($_POST['i
 	}
 	exit($resp);
 }
-else if ($page === 'save_poll' and $_SESSION['$root'] == 1) {
+else if ($page === 'save_poll' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель')) {
 	
 	$pollID = $_POST['id_poll'];
 	$name = $_POST['name'];

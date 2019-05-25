@@ -1,5 +1,5 @@
 <?
-if ($page === 'add_user' and $_SESSION['$root'] == 1 and isset($_POST['login']) and isset($_POST['pass'])) {
+if ($page === 'add_user' and $_SESSION['$role'] == 'Администратор' and isset($_POST['login']) and isset($_POST['pass'])) {
 	$fio = $_POST['fio'];
 	$login = $_POST['login'];
 	$pass = md5($_POST['pass']);
@@ -24,7 +24,7 @@ if ($page === 'add_user' and $_SESSION['$root'] == 1 and isset($_POST['login']) 
 	}
 	exit($resp);
 }
-else if ($page === 'rm_user' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'rm_user' and $_SESSION['$role'] == 'Администратор' and isset($_POST['id']) and $_POST['id'] !== '') {
 	$userID = $_POST['id'];
 	$query = mysqli_query($link, "DELETE FROM `users` WHERE `id` = $userID");
 
@@ -36,7 +36,7 @@ else if ($page === 'rm_user' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'ed_user' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'ed_user' and $_SESSION['$role'] == 'Администратор' and isset($_POST['id']) and $_POST['id'] !== '') {
 	$userID = $_POST['id'];
 
 	$query = mysqli_query($link, "SELECT * FROM `users` WHERE `id` = $userID");
@@ -49,7 +49,7 @@ else if ($page === 'ed_user' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'save_user' and $_SESSION['$root'] == 1) {
+else if ($page === 'save_user' and $_SESSION['$role'] == 'Администратор') {
 	
 	$userID = $_POST['id_user'];
 	$fio = $_POST['fio'];

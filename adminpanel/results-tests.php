@@ -1,6 +1,6 @@
 <? include("header.php"); ?>
 	<? 
-	$query = mysqli_query($link, "SELECT results_test.id, results_test.id_test, results_test.id_user, results_test.result, tests.name, users.fio FROM results_test, tests, users  WHERE tests.id = results_test.id_test AND users.id = results_test.id_user");
+	$query = mysqli_query($link, "SELECT results_test.id, results_test.id_test, results_test.id_user, results_test.result, results_test.ocenka, tests.name, users.fio FROM results_test, tests, users  WHERE tests.id = results_test.id_test AND users.id = results_test.id_user");
 	$filter = mysqli_query($link, "SELECT * FROM  tests");
 	$i = 0;
 	?>
@@ -47,13 +47,14 @@
 						<th style="font-size: 18px;"><b>ФИО</b></th>
 						<th style="font-size: 18px;"><b>Тест</b></th>
 						<th style="font-size: 18px;"><b>Результат</b></th>
+						<th style="font-size: 18px;"><b>Оценка</b></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<? while($result = mysqli_fetch_array($query)){ 
 						$i = $i + 1;
-						echo "<tr class='item' data-test-id ='$result[id_test]'><td>$i</td><td>$result[fio]</td><td>$result[name]</td><td>$result[result] %</td><td><span class='glyphicon glyphicon-remove remove-result' aria-hidden='true' data-id='$result[id]'></span></td></tr>";
+						echo "<tr class='item' data-test-id ='$result[id_test]'><td>$i</td><td>$result[fio]</td><td>$result[name]</td><td>$result[result] %</td><td>$result[ocenka]</td><td><span class='glyphicon glyphicon-remove remove-result' aria-hidden='true' data-id='$result[id]'></span></td></tr>";
 					} ?>
 				</tbody>
 			</table>

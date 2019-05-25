@@ -1,5 +1,5 @@
 <?
-if ($page === 'add_test' and $_SESSION['$root'] == 1 and isset($_POST['name'])) {
+if ($page === 'add_test' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['name'])) {
 	$name = $_POST['name'];
 	$time = $_POST['time'];
 	if (isset($_POST['enable'])) {
@@ -28,7 +28,7 @@ if ($page === 'add_test' and $_SESSION['$root'] == 1 and isset($_POST['name'])) 
 	}
 	exit($resp);
 }
-else if ($page === 'rm_test' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'rm_test' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$testID = $_POST['id'];
 	$query = mysqli_query($link, "DELETE FROM `tests` WHERE `id` = $testID");
 
@@ -40,7 +40,7 @@ else if ($page === 'rm_test' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'ed_test' and $_SESSION['$root'] == 1 and isset($_POST['id']) and $_POST['id'] !== '') {
+else if ($page === 'ed_test' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') and isset($_POST['id']) and $_POST['id'] !== '') {
 	$testID = $_POST['id'];
 
 	$query = mysqli_query($link, "SELECT * FROM `tests` WHERE `id` = $testID");
@@ -53,7 +53,7 @@ else if ($page === 'ed_test' and $_SESSION['$root'] == 1 and isset($_POST['id'])
 	}
 	exit($resp);
 }
-else if ($page === 'save_test' and $_SESSION['$root'] == 1) {
+else if ($page === 'save_test' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель')) {
 	
 	$testID = $_POST['id_test'];
 	$name = $_POST['name'];

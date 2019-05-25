@@ -8,10 +8,9 @@ $(document).ready(function() {
 			type: 'POST',
 			data: formData+'&login_form=1',
 			success: function(resp) {
-				console.log(JSON.parse(resp));
 				var status = JSON.parse(resp).status;
 				if (status === 200) {
-					window.location = '/adminka';
+					window.location = '/main';
 				}else if (status ===201) {
 					window.location = '/testirovanie';
 				}

@@ -43,11 +43,10 @@ if (isset($_POST['login_form'])) {
 					$_SESSION['$role'] = $log_and_pass['role'];
 					$_SESSION['$id_user'] = $log_and_pass['id'];
 					$_SESSION['$fio'] = $log_and_pass['fio'];
-					$_SESSION['$root'] = $log_and_pass['root'];
-					//header("location: /adminka");
-					if($_SESSION['$root'] == 1)print_r('{"status": 200}');
+					//header("location: /main");
+					if($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель')print_r('{"status": 200}');
 					//header("location: /testirovanie");
-					if($_SESSION['$root'] == 0)print_r('{"status": 201}');
+					if($_SESSION['$role'] == 'Студент' )print_r('{"status": 201}');
 					exit;				
 		    }
 		    else//если введеная инфо не совпадает с инфо из БД
@@ -114,8 +113,12 @@ if(isset($_GET['test']) and $_GET['test'] !== ''){
 	exit;
 }
 
-if ( file_exists('adminpanel/'.$page.'.php') and $_SESSION['$root'] == 1 ) { 
-	include('adminpanel/'.$page.'.php');
+if ( file_exists('adminpanel/'.$page.'.php') and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') ) { 
+	if ($page === 'users' and  $_SESSION['$role'] == 'Преподаватель' ) {
+		include('404/404.php');
+	}else{
+		include('adminpanel/'.$page.'.php');
+	}
 }
 else if ( file_exists('auth/'.$page.'.php') ) { 
 	include('auth/'.$page.'.php');
@@ -126,7 +129,7 @@ else if ( file_exists('testing/'.$page.'.php') ) {
 else if ( file_exists('voting/'.$page.'.php') ) { 
 	include('voting/'.$page.'.php');
 }
-else if ($page === 'home' and $_SESSION['$root'] == 1 ) {
-	$page = 'adminka';
+else if ($page === 'home' and ($_SESSION['$role'] == 'Администратор' || $_SESSION['$role'] == 'Преподаватель') ) {
+	$page = 'main';
 	include('adminpanel/'.$page.'.php');
 }
