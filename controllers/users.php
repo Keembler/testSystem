@@ -4,14 +4,8 @@ if ($page === 'add_user' and $_SESSION['$role'] == 'Администратор' 
 	$login = $_POST['login'];
 	$pass = md5($_POST['pass']);
 	$newRole = $_POST['role'];
-	if (isset($_POST['root'])) {
-		$newRoot = 1;
-	}
-	else {
-		$newRoot = 0;
-	}
 
-	$query = mysqli_query($link, "INSERT INTO `users` (`fio`, `login`, `password`, `role`, `root`) VALUES('$fio','$login','$pass','$newRole','$newRoot')");
+	$query = mysqli_query($link, "INSERT INTO `users` (`fio`, `login`, `password`, `role`) VALUES('$fio','$login','$pass','$newRole')");
 
 	$query = mysqli_query($link, "SELECT * FROM `users` ORDER BY id DESC LIMIT 1");
 	$user = json_encode(mysqli_fetch_array($query));
@@ -58,18 +52,12 @@ else if ($page === 'save_user' and $_SESSION['$role'] == 'Администрат
 		$pass = md5($_POST['pass']);
 	}
 	$newRole = $_POST['role'];
-	if (isset($_POST['root'])) {
-		$newRoot = 1;
-	}
-	else {
-		$newRoot = 0;
-	}
 
 	if (isset($_POST['pass']) and $_POST['pass'] !== '')  {
-		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `password` = '$pass', `role` = '$newRole', `root` = '$newRoot'WHERE `id` = $userID");
+		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `password` = '$pass', `role` = '$newRole' WHERE `id` = $userID");
 	}
 	else {
-		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `role` = '$newRole', `root` = '$newRoot'WHERE `id` = $userID");
+		$query = mysqli_query($link, "UPDATE `users` SET `fio` = '$fio', `login` = '$login', `role` = '$newRole' WHERE `id` = $userID");
 	}
 
 	if ($query) {
